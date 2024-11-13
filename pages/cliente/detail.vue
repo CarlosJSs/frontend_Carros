@@ -1,16 +1,16 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
-    <detailRental :cars="cars" /> <!-- Agrega el componente detailRental -->
+    <cars :cars="cars" /> <!-- Agrega el componente detailRental -->
   </v-row>
 </template>
 
 <script>
-import detailRental from '~/components/detailRental.vue'
+import cars from '~/components/cars.vue'
 
 export default {
   name: 'HomePage',
   components: {
-    detailRental
+    cars
   },
   layout: 'detail',
   middleware: 'detect-push',
@@ -27,10 +27,10 @@ export default {
 }
 </script>
 
-<style scoped>
-.index-background {
-  background-color: rgb(234, 242, 255);
-  width: 100vw;
-  height: 100vh;
-}
-</style>
+  <style scoped>
+  .index-background {
+    background-color: rgb(234, 242, 255);
+    width: 100vw;
+    height: 100vh;
+  }
+  </style>

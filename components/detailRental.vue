@@ -1,7 +1,9 @@
 <template>
   <section class="popular-cars">
     <h3>Popular Cars</h3>
+    <!-- Itera sobre la propiedad cars para mostrar cada coche -->
     <div v-for="car in cars" :key="car.name" class="car-card">
+      <!-- Imagen del coche -->
       <img src="c1.png" alt="Car Image" width="200" height="150" />
       <h4>{{ car.name }}</h4>
       <p>{{ car.type }}</p>
@@ -13,7 +15,7 @@
 
 <script>
 export default {
-  name: 'detailRental',
+  name: 'DetailRental',
   props: {
     cars: {
       type: Array,
