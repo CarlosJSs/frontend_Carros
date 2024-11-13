@@ -1,16 +1,19 @@
 <template>
-  <v-row justify="center" align="center" class="index-background">
+  <v-row justify="center" align="center" class="index-background" direction="column">
     <carProfile />
+    <reviewsCont />
   </v-row>
 </template>
 
 <script>
 import carProfile from '@/components/carProfile.vue'
+import reviewsCont from '@/components/reviewsContainer.vue'
 
 export default {
   name: 'DetailCarPage',
   components: {
-    carProfile
+    carProfile,
+    reviewsCont
   },
   layout: 'clienteLayout',
   middleware: 'detect-push'
@@ -19,7 +22,7 @@ export default {
 
 <style scoped>
 .index-background {
-  background-color: #8e9096;
+  background-color: #f6f7f9;
   width: 100vw;
   height: 100vh;
 }
