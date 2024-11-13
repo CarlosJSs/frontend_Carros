@@ -1,9 +1,8 @@
 <template>
   <section class="popular-cars">
-    <h3>Popular Car</h3>
+    <h3>Popular Cars</h3>
     <div v-for="car in cars" :key="car.name" class="car-card">
-      <!--<img :src="car.image" alt="Car Image">-->
-      <img src="c1.png" alt="Car Image" width="200" height="150">
+      <img src="c1.png" alt="Car Image" width="200" height="150" />
       <h4>{{ car.name }}</h4>
       <p>{{ car.type }}</p>
       <p>${{ car.price }} / day</p>
@@ -14,7 +13,7 @@
 
 <script>
 export default {
-  name: 'PopularCars',
+  name: 'detailRental',
   props: {
     cars: {
       type: Array,
@@ -23,17 +22,16 @@ export default {
   },
   methods: {
     rentCar (car) {
-    // Aquí puedes agregar lógica para alquilar el coche
-      console.log(`Alquilando el coche: ${car.name}`);
+      console.log(`Alquilando el coche: ${car.name}`)
     }
   }
 }
 </script>
+
 <style scoped>
- .popular-cars {
+.popular-cars {
   padding: 20px;
 }
-
 .car-card {
   display: inline-block;
   background-color: #fff;
