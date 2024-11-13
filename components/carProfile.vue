@@ -21,24 +21,34 @@
         <div class="rowCard">
           <div class="carTitleDesc">
             <div class="carTitle">
-              Nissan GT-R
+              {{ carName }}
             </div>
             <div class="carReview">
               <div class="carStars">
-                ⭐⭐⭐⭐✩
+                <span v-for="n in estrellas" :key="'estrella-' + n">
+                  ⭐
+                </span>
+                <span v-for="n in estrellasWhite" :key="'estrellaWhite-' + n">
+                  ✩
+                </span>
               </div>
               <div class="reviewsNum">
-                440+ Reviewer
+                {{ numReviews }} + Reviewer
               </div>
             </div>
           </div>
           <div class="loveIcon">
-            ❤️
+            <span v-if="lovedCar">
+              ❤️
+            </span>
+            <span v-else>
+              🤍
+            </span>
           </div>
         </div>
         <div class="rowCard">
           <p class="carDesc">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, quasi modi, reiciendis quidem sapiente quam laboriosam voluptatibus quod qui accusamus sint nemo esse consectetur voluptate, ullam nam! Tempore, ullam in.
+            {{ carDescrip }}
           </p>
         </div>
         <div class="rowCard rowProps">
@@ -48,7 +58,7 @@
                 TypeCar
               </div>
               <div class="infoProp">
-                Sport
+                {{ typeCar }}
               </div>
             </div>
             <div class="rowInfo secondRinf">
@@ -56,7 +66,7 @@
                 Steering
               </div>
               <div class="infoProp">
-                Manual
+                {{ steeringCar }}
               </div>
             </div>
           </div>
@@ -66,7 +76,7 @@
                 Capacity
               </div>
               <div class="infoProp">
-                2 Person
+                {{ capacityCar }}
               </div>
             </div>
             <div class="rowInfo secondRinf">
@@ -74,7 +84,7 @@
                 Gasoline
               </div>
               <div class="infoProp">
-                70L
+                {{ gasonileCar }}
               </div>
             </div>
           </div>
@@ -82,13 +92,13 @@
         <div class="rowCard btnPrice">
           <div class="carPrice">
             <div class="actualPrice">
-              $80.00/
+              ${{ actualPrice }}/
               <span class="priceTime">
                 days
               </span>
             </div>
             <div class="prevPrice">
-              $100.00
+              ${{ prevPrice }}
             </div>
           </div>
           <div class="btnRent">
@@ -102,9 +112,74 @@
 
 <script>
 export default {
+  props: {
+    carName: {
+      type: String,
+      required: true,
+      default: 'Nissan GT-R'
+    },
+    carDescrip: {
+      type: String,
+      required: true,
+      default: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, quasi modi, reiciendis quidem sapiente quam laboriosam voluptatibus quod qui accusamus sint nemo esse consectetur voluptate, ullam nam! Tempore, ullam in.'
+    },
+    typeCar: {
+      type: String,
+      required: true,
+      default: 'Sport'
+    },
+    steeringCar: {
+      type: String,
+      required: true,
+      default: 'Manual'
+    },
+    capacityCar: {
+      type: String,
+      required: true,
+      default: '2 Person'
+    },
+    gasonileCar: {
+      type: String,
+      required: true,
+      default: '70L'
+    },
+    actualPrice: {
+      type: String,
+      required: true,
+      default: '80.00'
+    },
+    prevPrice: {
+      type: String,
+      required: true,
+      default: '100.00'
+    },
+    numReviews: {
+      type: String,
+      required: true,
+      default: '440'
+    },
+    numStars: {
+      type: Number,
+      required: true,
+      default: 4
+    },
+    lovedCar: {
+      type: Boolean,
+      required: true,
+      default: true
+    }
+  },
   data () {
     return {
 
+    }
+  },
+  computed: {
+    estrellas () {
+      return Array(this.numStars).fill(null)
+    },
+    estrellasWhite () {
+      return Array(5 - this.numStars).fill(null)
     }
   }
 }
