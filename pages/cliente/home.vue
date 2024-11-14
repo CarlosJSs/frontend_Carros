@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
     <target :cars="cars" />
-    <!---<pick :cars="cars" />-->
+    <pickUp :cars="cars" />
     <detailRental :cars="cars" /> <!-- Agrega el componente detailRental -->
   </v-row>
 </template>
@@ -9,14 +9,14 @@
 <script>
 import detailRental from '@/components/detailRental.vue'
 import target from '@/components/target.vue'
-// import pick from '~/components/pick-up.vue'
+import pickUp from '~/components/pick-up.vue'
 
 export default {
   name: 'HomePage',
   components: {
     detailRental,
-    target
-  // ,pick
+    target,
+    pickUp
   },
   layout: 'detail',
   middleware: 'detect-push',

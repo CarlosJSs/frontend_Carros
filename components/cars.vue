@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="container">
     <!-- Sidebar Filters -->
     <aside class="filters">
       <h3>Type</h3>
@@ -30,7 +30,7 @@
         <button @click="rentCar(car)">Rent Now</button>
       </div>
     </section>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -103,9 +103,15 @@ export default {
 </script>
 
   <style scoped>
-  main {
-    display: flex;
-  }
+  .container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
   .filters {
     width: 250px;

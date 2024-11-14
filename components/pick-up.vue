@@ -8,7 +8,9 @@
       <div class="form-group">
         <label>Locations</label>
         <select v-model='pickupLocation'>
-          <option disabled value="">Select your city</option>
+          <option disabled value="">
+            Select your city
+          </option>
           <option v-for="city in cities" :key='city'>{{ city }}</option>
         </select>
       </div>
