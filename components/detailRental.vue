@@ -2,13 +2,15 @@
   <section class="popular-cars">
     <h3>Popular Cars</h3>
     <!-- Itera sobre la propiedad cars para mostrar cada coche -->
-    <div v-for="car in cars" :key="car.name" class="car-card">
+    <div v-for="(car, index) in cars" :key="index" class="car-card">
       <!-- Imagen del coche -->
-      <img src="c1.png" alt="Car Image" width="200" height="150" />
+      <img src="c1.png" alt="Car Image" width="200" height="150">
       <h4>{{ car.name }}</h4>
       <p>{{ car.type }}</p>
       <p>${{ car.price }} / day</p>
-      <button @click="rentCar(car)">Rent Now</button>
+      <button @click="rentCar(car)">
+        Rent Now
+      </button>
     </div>
   </section>
 </template>
@@ -24,6 +26,7 @@ export default {
   },
   methods: {
     rentCar (car) {
+      // eslint-disable-next-line no-console
       console.log(`Alquilando el coche: ${car.name}`)
     }
   }

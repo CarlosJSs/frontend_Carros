@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import detailRental from '~/components/detailRental.vue'
+import detailRental from '@/components/detailRental.vue'
 
 export default {
   name: 'HomePage',

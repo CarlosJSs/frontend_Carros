@@ -1,21 +1,28 @@
 <template>
-  <header class="header">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <div class="logo">MORENT</div>
+  <v-app>
+    <header class="header">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <div class="logo">
+        MORENT
+      </div>
 
-    <!-- Barra de búsqueda con icono de enlace -->
-    <div class="search-bar">
-      <input type="text" placeholder="Search something here" />
-      <i class="fas fa-link"></i> <!-- Ícono de enlace -->
-    </div>
-    <!-- Iconos en el lado derecho -->
-    <div class="header-icons">
-      <i class="fas fa-heart"></i> <!-- Ícono de corazón -->
-      <i class="fas fa-bell"></i> <!-- Ícono de notificación -->
-      <i class="fas fa-cog"></i> <!-- Ícono de configuración -->
-      <i class="fas fa-user-circle"></i> <!-- Ícono de usuario -->
-    </div>
-  </header>
+      <!-- Barra de búsqueda con icono de enlace -->
+      <div class="search-bar">
+        <input type="text" placeholder="Search something here">
+        <i class="fas fa-link" /> <!-- Ícono de enlace -->
+      </div>
+      <!-- Iconos en el lado derecho -->
+      <div class="header-icons">
+        <i class="fas fa-heart" /> <!-- Ícono de corazón -->
+        <i class="fas fa-bell" /> <!-- Ícono de notificación -->
+        <i class="fas fa-cog" /> <!-- Ícono de configuración -->
+        <i class="fas fa-user-circle" /> <!-- Ícono de usuario -->
+      </div>
+    </header>
+    <main>
+      <Nuxt />
+    </main>
+  </v-app>
 </template>
 
 <script>
@@ -23,6 +30,9 @@ export default {}
 </script>
 
 <style scoped>
+* {
+  color: black;
+}
 .header {
   display: flex;
   justify-content: space-between;

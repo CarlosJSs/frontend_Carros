@@ -19,7 +19,7 @@ export default {
   width: 100%;
   height: 100vh;
   background-color: white;
-  color: white;
+  color: black;
   margin: 0;
   padding: 0;
 }
