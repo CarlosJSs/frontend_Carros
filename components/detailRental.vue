@@ -4,13 +4,15 @@
     <!-- Itera sobre la propiedad cars para mostrar cada coche -->
     <div v-for="(car, index) in cars" :key="index" class="car-card">
       <!-- Imagen del coche -->
-      <img src="c1.png" alt="Car Image" width="200" height="150">
       <h4>{{ car.name }}</h4>
       <p>{{ car.type }}</p>
+      <img src="~/assets/c1.png" alt="Car Image" width="200" height="150">
+      <br>
+      <span><i class="fas fa-gas-pump"></i> Gasoline  </span>
+      <span><i class="fas fa-cogs"></i> Manual   </span>
+      <span><i class="fas fa-user-friends"></i> 4 Passengers</span>
       <p>${{ car.price }} / day</p>
-      <button @click="rentCar(car)">
-        Rent Now
-      </button>
+      <button @click="rentCar(car)">Rent Now</button>
     </div>
   </section>
 </template>
@@ -42,9 +44,17 @@ export default {
   background-color: #fff;
   padding: 15px;
   margin: 10px;
-  width: 200px;
+  width: 33%;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
+button {
+    background-color: #1976d2;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
 </style>

@@ -1,16 +1,19 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
     <cars :cars="cars" /> <!-- Agrega el componente detailRental -->
+    <detail :cars="cars" />
   </v-row>
 </template>
 
 <script>
 import cars from '~/components/cars.vue'
+import detail from '~/components/detailRental.vue'
 
 export default {
   name: 'HomePage',
   components: {
-    cars
+    cars,
+    detail
   },
   layout: 'detail',
   middleware: 'detect-push',

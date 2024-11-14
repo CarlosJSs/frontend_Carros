@@ -1,16 +1,22 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
+    <target :cars="cars" />
+    <!---<pick :cars="cars" />-->
     <detailRental :cars="cars" /> <!-- Agrega el componente detailRental -->
   </v-row>
 </template>
 
 <script>
 import detailRental from '@/components/detailRental.vue'
+import target from '@/components/target.vue'
+// import pick from '~/components/pick-up.vue'
 
 export default {
   name: 'HomePage',
   components: {
-    detailRental
+    detailRental,
+    target
+  // ,pick
   },
   layout: 'detail',
   middleware: 'detect-push',
