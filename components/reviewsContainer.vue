@@ -6,7 +6,7 @@
           Reviews
         </div>
         <div class="numRev">
-          13
+          {{ numReviews }}
         </div>
       </div>
       <div class="mainSection">
@@ -14,7 +14,14 @@
           <reviewCard />
         </div>
         <div class="reviewItem">
-          <reviewCard />
+          <reviewCard
+            :desc-review="'We are greatly helped by the services of the MORENT Application. Morent has low prices and also a wide variety of cars with good and comfortable facilities. In addition, the service provided by the officers is also very friendly and very polite.'"
+            :date-rev="'20 July 2022'"
+            :num-stars="3"
+            :user-name="'Skylar Dias'"
+            :work-user="'CEO at Amazon'"
+            :img-user="require('@/assets/usuario2.jpg')"
+          />
         </div>
       </div>
       <div class="footerSection">
@@ -35,6 +42,13 @@ import reviewCard from '@/components/reviewCard.vue'
 export default {
   components: {
     reviewCard
+  },
+  props: {
+    numReviews: {
+      type: Number,
+      required: true,
+      default: 13
+    }
   }
 }
 </script>
@@ -42,7 +56,7 @@ export default {
 <style>
 .reviewsContainer {
   background-color: #ffffff;
-  width: 76vw;
+  width: 70vw;
   border-radius: 16px;
   padding: 1.6em 1.4em;
   font-family: 'Plus Jakarta Sans';
@@ -84,7 +98,7 @@ export default {
   justify-content: center;
   align-items: center;
   color: #90a3bf;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 .showAll {
