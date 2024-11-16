@@ -8,18 +8,23 @@
     </div>
     <div class="rowCardSM rowImgTitle">
       <div class="imgCarSM">
-        <img src="./../assets/cardSummaryExample.png" class="imageCarSM">
+        <img :src="carIMG" class="imageCarSM">
       </div>
       <div class="infoCarSM">
         <div class="titleCarSM">
-          Nissan GT-R
+          {{ carName }}
         </div>
         <div class="revCarSM">
           <div class="ratinStars">
-            ⭐⭐⭐⭐✩
+            <span v-for="n in estrellas" :key="'estrella-' + n">
+              ⭐
+            </span>
+            <span v-for="n in estrellasWhite" :key="'estrella-' + n">
+              ✩
+            </span>
           </div>
           <div class="numRevSM">
-            440+ Reviewer
+            {{ numReviewers }}+ Reviewer
           </div>
         </div>
       </div>
@@ -32,7 +37,7 @@
         Subtotal
       </div>
       <div class="subTnum">
-        $80.00
+        ${{ subTotal }}
       </div>
     </div>
     <div class="rowCardSM rowTax">
@@ -40,7 +45,7 @@
         Tax
       </div>
       <div class="taxNum">
-        $0
+        ${{ taxes }}
       </div>
     </div>
     <div class="rowCardSM rowInputPCode">
@@ -59,13 +64,60 @@
         </div>
       </div>
       <div class="rentalPriceNum">
-        $80.00
+        ${{ total }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+export default {
+  props: {
+    carName: {
+      type: String,
+      required: true,
+      default: 'Nissan GT-R'
+    },
+    carIMG: {
+      type: String,
+      required: true,
+      default: () => require('@/assets/cardSummaryExample.png')
+    },
+    numStars: {
+      type: Number,
+      required: true,
+      default: 4
+    },
+    numReviewers: {
+      type: Number,
+      required: true,
+      default: 440
+    },
+    subTotal: {
+      type: Number,
+      required: true,
+      default: 80.01
+    },
+    taxes: {
+      type: Number,
+      required: true,
+      default: 0
+    },
+    total: {
+      type: Number,
+      required: true,
+      default: 80.01
+    }
+  },
+  computed: {
+    estrellas () {
+      return Array(this.numStars).fill(null)
+    },
+    estrellasWhite () {
+      return Array(5 - this.numStars).fill(null)
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -155,7 +207,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.4em;
+  margin-bottom: 1.6em;
 }
 .rowInputPCode {
   display: flex;
@@ -164,7 +216,7 @@
   align-items: center;
   background-color: #e9eaeec2;
   border-radius: 16px;
-  margin: 0 0.4em 0 0.4em;
+  margin: 0 0.2em 0 0.2em;
   height: 56px;
 }
 .inputPCode {
@@ -173,22 +225,22 @@
   width: 70%;
   color: #1a202c;
   font-weight: 500;
-  font-size: 1em;
+  font-size: .9em;
 }
 .btnApplyC {
   height: 100%;
-  margin-right: 2em;
+  margin-right: .6em;
   width: 30%;
   color: #1a202c;
   font-weight: 600;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 .rowTotalPrice {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1.4em;
+  margin-top: 1.8em;
 }
 .rentalTitle {
   color: #1a202c;
