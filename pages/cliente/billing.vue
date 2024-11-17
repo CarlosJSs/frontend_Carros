@@ -1,5 +1,5 @@
 <template>
-  <v-row justify="center" align="center" class="index-background">
+  <v-row justify="center" align="start" class="index-background">
     <billingForm />
     <summCard />
   </v-row>
@@ -24,6 +24,8 @@ export default {
 .index-background {
   background-color: #f6f7f9;
   width: 100vw;
-  height: 100vh;
+  height: auto;
+  padding-top: 6vh;
+  padding-bottom: 6vh;
 }
 </style>

@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="rowCardSM dividerCardSM">
-      .
+      ‎
     </div>
     <div class="rowCardSM rowSubTotal">
       <div class="subTtext">
@@ -129,6 +129,7 @@ export default {
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
   padding: 1.4em 1.4em;
   width: 492px;
+  background-color: white;
 }
 .titleCardSM {
   color: #1a202c;
@@ -214,7 +215,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #e9eaeec2;
+  background-color: #f6f7f9;
   border-radius: 16px;
   margin: 0 0.2em 0 0.2em;
   height: 56px;
