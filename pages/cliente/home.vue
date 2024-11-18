@@ -1,15 +1,23 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
-    <target :cars="cars" />
-    <pickUp :cars="cars" />
-    <detailRental :cars="cars" /> <!-- Agrega el componente detailRental -->
+    <div class="container">
+      <div class="hero-section">
+        <target :cars="cars" />
+      </div>
+      <div class="form-section">
+        <pickUp :cars="cars" />
+      </div>
+      <div class="popular-section">
+        <detailRental :cars="cars" />
+      </div>
+    </div>
   </v-row>
 </template>
 
 <script>
 import detailRental from '@/components/detailRental.vue'
-import target from '@/components/target.vue'
-import pickUp from '~/components/pick-up.vue'
+import target from '~/components/targetComponent.vue'
+import pickUp from '@/components/pick-up.vue'
 
 export default {
   name: 'HomePage',
@@ -22,11 +30,10 @@ export default {
   middleware: 'detect-push',
   data () {
     return {
-      showLoginF: true,
       cars: [
-        { name: 'Car A', type: 'SUV', price: 50 },
-        { name: 'Car B', type: 'Sedan', price: 40 },
-        { name: 'Car C', type: 'Convertible', price: 70 }
+        { name: 'Koenigsegg', type: 'Sport', price: 99 },
+        { name: 'Nissan GT-R', type: 'Sport', price: 80 },
+        { name: 'Rolls-Royce', type: 'Sedan', price: 96 }
       ]
     }
   }
@@ -35,8 +42,27 @@ export default {
 
 <style scoped>
 .index-background {
-  background-color: rgb(234, 242, 255);
+  background-color: #f5f5f5;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.container {
+  width: 90%;
+  max-width: 1200px;
+}
+.hero-section {
+  margin-bottom: 20px;
+}
+.form-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+.popular-section {
+  margin-top: 20px;
 }
 </style>

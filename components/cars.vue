@@ -16,7 +16,7 @@
       <label><input type="checkbox" v-model="filters.capacity.eightPlus"> 8 or More (16)</label>
 
       <h3>Price</h3>
-      <input type="range" v-model="filters.price" min="0" max="100" />
+      <input type="range" v-model="filters.price" min="0" max="100">
       <p>Max. ${{ filters.price }}.00</p>
     </aside>
 
@@ -25,9 +25,11 @@
       <div class="car-card" v-for="(car, index) in filteredCars" :key="index">
         <h4>{{ car.name }}</h4>
         <p>{{ car.type }}</p>
-        <img :src="car.image" alt="Car Image" />
+        <img :src="car.image" alt="Car Image">
         <p>${{ car.price }} / day</p>
-        <button @click="rentCar(car)">Rent Now</button>
+        <button @click="rentCar(car)">
+          Rent Now
+        </button>
       </div>
     </section>
   </div>

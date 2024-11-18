@@ -35,5 +35,11 @@ export default {
     background-color: rgb(234, 242, 255);
     width: 100vw;
     height: 100vh;
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 20px;
+  box-sizing: border-box;
   }
   </style>
