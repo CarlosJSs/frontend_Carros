@@ -100,7 +100,7 @@ button {
 }
 .ac{
   display: flex;
-  width: 970px;
+  width: 980px;
   gap: 15px;
 }
   </style>

@@ -1,6 +1,9 @@
 <template>
   <div class='dashboard-menu'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <head>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    </head>
+
     <!-- Navegación principal -->
     <div class='menu-section'>
       <h4>Main Menu</h4>
@@ -53,12 +56,13 @@ export default {
 .dashboard-menu {
   width: 250px;
   height: 100vh;
-  background-color: #f8f9fb;
+  background-color: #ffff;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-right: 1px solid #ddd;
+  color: #5c5c5c;
 }
 
 .menu-section,
@@ -68,7 +72,7 @@ export default {
 
 h4 {
   font-size: 14px;
-  color: #9a9a9a;
+  color: #5c5c5c;
   margin-bottom: 10px;
 }
 
@@ -95,7 +99,7 @@ h4 {
 .menu-list li i {
   font-size: 18px;
   margin-right: 10px;
-  color: #007bff;
+  color: #838282;
 }
 
 .menu-list li.active i,
