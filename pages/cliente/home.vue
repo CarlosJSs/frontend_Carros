@@ -4,12 +4,16 @@
       <div class="hero-section">
         <target :cars="cars" />
       </div>
-      <div class="form-section">
-        <pickUp :cars="cars" />
+      <div class="ac">
+        <div class="form-section">
+          <pickUp2 :cars="cars" />
+        </div>
         <button @click="swapLocations" class="swap-button">
           ⇄
         </button>
-        <pickUp2 :cars="cars" />
+        <div class="form-section">
+          <pickUp :cars="cars" />
+        </div>
       </div>
       <div class="popular-section">
         <detailRental :cars="cars" />
@@ -55,6 +59,19 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
+.ac{
+  display: flex;
+  gap: 15px;
+}
+button {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px;
+  height: 50px;
+  align-self: center;
+  border: none;
+  border-radius: 5px;
+}
 .container {
   width: 90%;
   max-width: 1200px;
@@ -66,6 +83,7 @@ export default {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
+  width: 530px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .popular-section {

@@ -5,8 +5,16 @@
         <cars :cars="cars" /> <!-- Agrega el componente detailRental -->
       </div>
       <div>
-        <div class="form-section">
-          <pickUp :cars="cars" />
+        <div class="ac">
+          <div class="form-section">
+            <pickUp2 :cars="cars" />
+          </div>
+          <button @click="swapLocations" class="swap-button">
+            ⇄
+          </button>
+          <div class="form-section">
+            <pickUp :cars="cars" />
+          </div>
         </div>
         <div class="popular-section">
           <detail :cars="cars" />
@@ -19,11 +27,15 @@
 <script>
 import cars from '~/components/cars.vue'
 import detail from '~/components/detailRental.vue'
+import pickUp from '@/components/pick-up.vue'
+import pickUp2 from '@/components/pickUp02.vue'
 
 export default {
   name: 'HomePage',
   components: {
     cars,
+    pickUp,
+    pickUp2,
     detail
   },
   layout: 'detail',
@@ -58,7 +70,18 @@ export default {
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
+  width: 530px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px;
+  height: 50px;
+  align-self: center;
+  border: none;
+  border-radius: 5px;
 }
   .container{
     display: flex;
@@ -74,5 +97,10 @@ export default {
 .hero-section {
   margin: 0; /* Elimina márgenes */
   padding: 0;
+}
+.ac{
+  display: flex;
+  width: 970px;
+  gap: 15px;
 }
   </style>

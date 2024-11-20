@@ -55,11 +55,4 @@ export default {
 .form-group {
   flex: 1;
 }
-button {
-  background-color: #1976d2;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-}
 </style>
