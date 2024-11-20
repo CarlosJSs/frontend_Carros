@@ -8,23 +8,31 @@
       <h4>Nissan GT-R</h4>
       <p>Sport Car</p>
       <div class="locations">
-        <div>
-          <strong>Pick-Up:</strong>
-          <p>Kota Semarang</p>
+        <div class="pick">
+          <pickUp2></pickUp2>
         </div>
-        <div>
-          <strong>Drop-Off:</strong>
-          <p>Kota Semarang</p>
+        <div class="pick">
+          <pickUp></pickUp>
         </div>
       </div>
-      <p class="total-price">$80.00</p>
+      <br>
+      <div class="price">
+        <strong style="font-size: 20px">Total Rent Price</strong>
+        <p class="total-price">$80.00</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import pickUp from '@/components/pick-up.vue'
+import pickUp2 from '@/components/pickUp02.vue'
 export default {
-  name: 'RentalDetails'
+  name: 'RentalDetails',
+  components: {
+    pickUp,
+    pickUp2
+  }
 }
 </script>
 
@@ -35,7 +43,10 @@ export default {
   border-radius: 10px;
   background-color: #fff;
 }
-
+.price{
+  display: flex;
+  gap: 55%; /* Espaciado entre los elementos */
+}
 .details {
   text-align: left;
 }
@@ -43,9 +54,15 @@ export default {
   margin-bottom: 5px;
 }
 .total-price {
-  font-size: 18px;
-  color: #007BFF;
+  font-size: 28px;
+  color: #0a0a0a;
   font-weight: bold;
   margin-top: 10px;
+}
+.pick{
+  width: 700px;
+}
+.img{
+
 }
 </style>

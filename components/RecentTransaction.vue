@@ -42,6 +42,7 @@ export default {
 }
 .popular-cars {
   padding: 20px;
+  width: 100%;
 }
 .recent-transaction ul {
   list-style: none;

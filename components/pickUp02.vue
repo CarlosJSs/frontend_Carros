@@ -1,7 +1,7 @@
 <template>
   <div class="pickup-form">
     <div class="form-group">
-      <label>Drop-Off</label><br>
+      <label>Pick-Up </label><br>
       <label> Location</label><br>
       <select v-model="pickupLocation">
         <option disabled value="">

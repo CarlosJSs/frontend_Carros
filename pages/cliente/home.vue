@@ -6,6 +6,10 @@
       </div>
       <div class="form-section">
         <pickUp :cars="cars" />
+        <button @click="swapLocations" class="swap-button">
+          ⇄
+        </button>
+        <pickUp2 :cars="cars" />
       </div>
       <div class="popular-section">
         <detailRental :cars="cars" />
@@ -18,13 +22,15 @@
 import detailRental from '@/components/detailRental.vue'
 import target from '~/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
+import pickUp2 from '@/components/pickUp02.vue'
 
 export default {
   name: 'HomePage',
   components: {
     detailRental,
     target,
-    pickUp
+    pickUp,
+    pickUp2
   },
   layout: 'detail',
   middleware: 'detect-push',
