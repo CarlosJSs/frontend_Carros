@@ -24,7 +24,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-main>
-      <v-container>
+      <v-container class="container">
         <Nuxt />
       </v-container>
     </v-main>
@@ -53,28 +53,8 @@ export default {
         },
         {
           icon: 'mdi-account',
-          title: 'Car Rent',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Insight',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Reimburse',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Inbox',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Calendar',
-          to: '/admin'
+          title: 'Add Car',
+          to: '/admin/addCar'
         },
         {
           icon: 'mdi-logout',
@@ -90,3 +70,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100vh;
+}
+</style>
