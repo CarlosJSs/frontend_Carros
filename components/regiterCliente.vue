@@ -9,28 +9,28 @@
       </p>
       <div class="flex">
         <label>
-          <input required="" placeholder="" type="text" class="input">
+          <input v-model="clienteModel.nombre" required="" placeholder="" type="text" class="input">
           <span>Nombre</span>
         </label>
 
         <label>
-          <input required="" placeholder="" type="text" class="input">
+          <input v-model="clienteModel.apellido" required="" placeholder="" type="text" class="input">
           <span>Apellido</span>
         </label>
       </div>
       <label>
-        <input required="" placeholder="" type="email" class="input">
+        <input v-model="clienteModel.correo" required="" placeholder="" type="email" class="input">
         <span>Correo</span>
       </label>
       <label>
-        <input required="" placeholder="" type="password" class="input">
+        <input v-model="clienteModel.contrasena" required="" placeholder="" type="password" class="input">
         <span>Contraseña</span>
       </label>
       <label>
         <input required="" placeholder="" type="password" class="input">
         <span>Confirmar contraseña</span>
       </label>
-      <button class="submit">
+      <button class="submit" @click="submitCliente">
         Enviar
       </button>
       <p class="signin">
@@ -45,15 +45,37 @@ export default {
   emits: ['switchForms'],
   data () {
     return {
-      nombre: '',
-      apellido: '',
-      correo: '',
-      password: ''
+      clienteModel: {
+        nombre: '',
+        apellido: '',
+        correo: '',
+        contrasena: ''
+      }
     }
   },
   methods: {
     switchF () {
       this.$emit('switchForms')
+    },
+    submitCliente () {
+      // eslint-disable-next-line no-console
+      console.log('entre a submitCliente')
+      if (this.clienteModel.nombre && this.clienteModel.apellido && this.clienteModel.correo && this.clienteModel.contrasena) {
+        this.$emit('addClienteEvent', {
+          ...this.clienteModel,
+          rol: 'cliente'
+        })
+
+        this.clienteModel = {
+          nombre: '',
+          apellido: '',
+          correo: '',
+          contrasena: ''
+        }
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('no entre')
+      }
     }
   }
 }
