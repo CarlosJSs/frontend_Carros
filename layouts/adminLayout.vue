@@ -24,7 +24,7 @@
       </v-list>
     </v-navigation-drawer>
     <v-main>
-      <v-container>
+      <v-container class="container">
         <Nuxt />
       </v-container>
     </v-main>
@@ -77,6 +77,11 @@ export default {
           to: '/admin'
         },
         {
+          icon: 'mdi-account',
+          title: 'Add Car',
+          to: '/admin/addCar'
+        },
+        {
           icon: 'mdi-logout',
           title: 'LogOut',
           to: '/'
@@ -90,3 +95,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+</style>
