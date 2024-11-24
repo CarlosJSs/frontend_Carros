@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center" align="start" class="index-background">
-    Bienvenido Admin
+    Bienvenido cliente
   </v-row>
 </template>
 
@@ -8,7 +8,7 @@
 
 export default {
   name: 'AdminIndexPage',
-  layout: 'adminLayout',
+  layout: 'clienteLayout',
   middleware: 'detect-push'
 }
 </script>

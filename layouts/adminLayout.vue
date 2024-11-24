@@ -53,31 +53,6 @@ export default {
         },
         {
           icon: 'mdi-account',
-          title: 'Car Rent',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Insight',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Reimburse',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Inbox',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'Calendar',
-          to: '/admin'
-        },
-        {
-          icon: 'mdi-account',
           title: 'Add Car',
           to: '/admin/addCar'
         },
@@ -100,7 +75,7 @@ export default {
 .container {
   display: flex;
   flex-direction: row;
-  align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 </style>
