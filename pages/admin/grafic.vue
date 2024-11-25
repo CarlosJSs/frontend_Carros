@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import SideMenu from '~/components/SideMenu.vue'
+import SideMenu from '@/components/SideMenu.vue'
 // import DoughnutChart from '~/components/DoughnutChart.vue'
-import RentalDetails from '~/components/RentalDetails.vue'
-import RecentTransaction from '~/components/RecentTransaction.vue'
+import RentalDetails from '@/components/RentalDetails.vue'
+import RecentTransaction from '@/components/RecentTransaction.vue'
 
 export default {
   name: 'Grafic',
@@ -25,7 +25,11 @@ export default {
     // DoughnutChart,
     RecentTransaction
   },
-  layout: 'detail'
+  layout: 'detail',
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ]
 }
 </script>
 

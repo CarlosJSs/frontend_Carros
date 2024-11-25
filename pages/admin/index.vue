@@ -9,7 +9,10 @@
 export default {
   name: 'AdminIndexPage',
   layout: 'adminLayout',
-  middleware: 'detect-push'
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ]
 }
 </script>
 

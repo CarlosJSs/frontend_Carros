@@ -17,7 +17,10 @@ export default {
     tableCars
   },
   layout: 'adminLayout',
-  middleware: 'detect-push',
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ],
   data () {
     return {
       cars: []
@@ -90,9 +93,8 @@ export default {
 <style scoped>
 .index-background {
   background-color: #f6f7f9;
-  width: 100vw;
   height: auto;
-  padding-top: 6vh;
+  padding-top: 2.7vh;
   padding-bottom: 6vh;
 }
 </style>
