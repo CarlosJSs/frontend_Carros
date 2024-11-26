@@ -8,7 +8,7 @@
         <div class="form-section">
           <pickUp2 :cars="cars" />
         </div>
-        <button @click="swapLocations" class="swap-button">
+        <button class="swap-button" @click="swapLocations">
           ⇄
         </button>
         <div class="form-section">
@@ -37,7 +37,10 @@ export default {
     pickUp2
   },
   layout: 'detail',
-  middleware: 'detect-push',
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ],
   data () {
     return {
       cars: [
