@@ -4,7 +4,7 @@
       <div class="hero-section">
         <target :cars="cars" />
       </div>
-      <div class="form-section">
+      <div>
         <pickUp :cars="cars" />
       </div>
     </div>
@@ -61,13 +61,6 @@ export default {
 }
 .hero-section {
   margin-bottom: 20px;
-}
-.form-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 530px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 .popular-section {
   margin-top: 20px;

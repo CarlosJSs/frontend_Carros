@@ -1,47 +1,58 @@
 <template>
   <div class="pickup-form">
-    <div class="form-group">
-      <label>Drop-Off</label><br>
-      <label> Location</label><br>
-      <select v-model="pickupLocation">
-        <option disabled value="">
-          Select a city
-        </option>
-        <option v-for="city in cities" :key="city">
-          {{ city }}
-        </option>
-      </select>
+    <!-- Panel de Pick-Up -->
+    <div class="form-panel">
+      <h4>Pick-Up</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Locations</label>
+          <select v-model="pickupLocation">
+            <option disabled value="">Select your city</option>
+            <option v-for="city in cities" :key="city">
+              {{ city }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" v-model="pickupDate" />
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" v-model="pickupTime" />
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Date</label><br>
-      <input type="date" v-model="pickupDate">
+
+    <!-- Botón de intercambio -->
+    <div class="swap-button-container">
+      <button @click="swapLocations" class="swap-button">
+        ⇄
+      </button>
     </div>
-    <div class="form-group">
-      <label>Time</label><br>
-      <input type="time" v-model="pickupTime">
-    </div>
-    <button @click="swapLocations" class="swap-button">
-      ⇄
-    </button>
-    <div class="form-group">
-      <label>Pick-Up </label><br>
-      <label> Location</label><br>
-      <select v-model="pickupLocation">
-        <option disabled value="">
-          Select a city
-        </option>
-        <option v-for="city in cities" :key="city">
-          {{ city }}
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Date</label><br>
-      <input type="date" v-model="pickupDate">
-    </div>
-    <div class="form-group">
-      <label>Time</label><br>
-      <input type="time" v-model="pickupTime">
+
+    <!-- Panel de Drop-Off -->
+    <div class="form-panel">
+      <h4>Drop-Off</h4>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Locations</label>
+          <select v-model="dropoffLocation">
+            <option disabled value="">Select your city</option>
+            <option v-for="city in cities" :key="city">
+              {{ city }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" v-model="dropoffDate" />
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" v-model="dropoffTime" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,6 +65,8 @@ export default {
       dropoffLocation: '',
       pickupDate: '',
       pickupTime: '',
+      dropoffDate: '',
+      dropoffTime: '',
       cities: ['New York', 'Los Angeles', 'Chicago', 'Houston']
     }
   },
@@ -66,26 +79,76 @@ export default {
   }
 }
 </script>
-
 <style scoped>
-
 .pickup-form {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 15px;
+  background-color: #f9fafc;
+  border-radius: 10px;
+  padding: 20px;
+  gap: 20px;
 }
+
+.form-panel {
+  flex: 1;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-panel h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .form-group {
   flex: 1;
 }
-button {
+
+label {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+  display: block;
+}
+
+select,
+input[type='date'],
+input[type='time'] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.swap-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swap-button {
   background-color: #1976d2;
   color: white;
-  padding: 10px;
-  height: 50px;
-  align-self: center;
   border: none;
-  border-radius: 5px;
+  border-radius: 20%;
+  font-size: 20px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+.swap-button:hover {
+  background-color: #125ea4;
 }
 </style>
