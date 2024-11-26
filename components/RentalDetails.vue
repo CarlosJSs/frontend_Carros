@@ -9,9 +9,6 @@
       <p>Sport Car</p>
       <div class="locations">
         <div class="pick">
-          <pickUp2></pickUp2>
-        </div>
-        <div class="pick">
           <pickUp></pickUp>
         </div>
       </div>
@@ -26,12 +23,10 @@
 
 <script>
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
 export default {
   name: 'RentalDetails',
   components: {
-    pickUp,
-    pickUp2
+    pickUp
   }
 }
 </script>

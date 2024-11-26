@@ -2,28 +2,19 @@
   <v-row justify="center" align="center" class="index-background">
     <div id="app">
       <div class="container">
-        <SideMenu />
-        <RentalDetails class="rent" />
         <DoughnutChart />
-        <RecentTransaction />
       </div>
     </div>
   </v-row>
 </template>
 
 <script>
-import SideMenu from '~/components/SideMenu.vue'
 import DoughnutChart from '~/components/DoughnutChart.vue'
-import RentalDetails from '~/components/RentalDetails.vue'
-import RecentTransaction from '~/components/RecentTransaction.vue'
 
 export default {
   name: 'Grafic',
   components: {
-    RentalDetails,
-    SideMenu,
-    DoughnutChart,
-    RecentTransaction
+    DoughnutChart
   },
   layout: 'detail'
 }
