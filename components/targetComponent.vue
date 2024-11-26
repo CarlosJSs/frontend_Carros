@@ -1,51 +1,162 @@
 <template>
-  <section class="hero">
-    <div v-for="banner in banners" :key="banner.id" class="hero-card">
-      <h2>{{ banner.title }}</h2>
-      <p>{{ banner.description }}</p>
-      <button>Explore</button>
+  <div class="carousel">
+    <div class="carousel-wrapper" :style="{ transform: `translateX(calc(-${currentIndex * 50}%))` }">
+      <div
+        class="carousel-item"
+        v-for="(item, index) in items"
+        :key="index"
+      >
+        <div class="card">
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.description }}</p>
+          <button class="btn">{{ item.buttonText }}</button>
+          <img :src="item.image" :alt="item.alt" class="card-image" />
+        </div>
+      </div>
     </div>
-  </section>
+    <!-- Controles -->
+    <div class="controls">
+      <button @click="prevSlide" class="control-btn">❮</button>
+      <button @click="nextSlide" class="control-btn">❯</button>
+    </div>
+  </div>
 </template>
-
 <script>
 export default {
   data () {
     return {
-      banners: [
-        { id: 1, title: 'The Best Platform for Car Rental', description: 'Ease of doing car rentals safely and reliably.' },
-        { id: 2, title: 'Easy Way to Rent a Car', description: 'Providing affordable prices and comfortable services.' }
+      currentIndex: 0,
+      items: [
+        {
+          title: 'The Best Platform for Car Rental',
+          description: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 1'
+        },
+        {
+          title: 'Easy way to rent a car at a low price',
+          description: 'Providing cheap car rental services and safe and comfortable facilities.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 2'
+        },
+        {
+          title: 'The Best Platform for Car Rental',
+          description: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 1'
+        },
+        {
+          title: 'Easy way to rent a car at a low price',
+          description: 'Providing cheap car rental services and safe and comfortable facilities.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 2'
+        }
       ]
+    }
+  },
+  methods: {
+    nextSlide () {
+      if (this.currentIndex < this.items.length / 2 - 1) {
+        this.currentIndex++
+      } else {
+        this.currentIndex = 0
+      }
+    },
+    prevSlide () {
+      if (this.currentIndex > 0) {
+        this.currentIndex--
+      } else {
+        this.currentIndex = Math.ceil(this.items.length / 2 - 1)
+      }
     }
   }
 }
 </script>
 
-<style scoped>
-.hero {
+<style>
+.carousel-wrapper {
   display: flex;
-  gap: 20px;
-  justify-content: space-around;
-  padding: 20px 0;
+  transition: transform 0.5s ease-in-out;
 }
-.hero-card {
-  background-color: #007bff;
-  color: #fff;
+
+.carousel-item {
+  flex: 0 0 50%; /* Cada slide ocupa el 50% del ancho */
+  padding: 10px; /* Espaciado entre slides */
+  box-sizing: border-box;
+}
+
+.card {
+  background: linear-gradient(120deg, #4f7ef1 0%, #63a4ff 100%);
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 45%;
+  color: white;
+  text-align: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 300px;
 }
-.hero-card h2 {
+
+.card h2 {
+  font-size: 24px;
   margin-bottom: 10px;
-  font-size: 18px;
 }
-button {
+
+.card p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.card .btn {
   background-color: #1976d2;
-  padding: 10px;
   color: white;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
 }
+
+.card .btn:hover {
+  background-color: #125ea4;
+}
+
+.card-image {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  max-height: 200px;
+  max-width: 50%;
+}
+
+.controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.control-btn {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  outline: none;
+}
+
+.control-btn:hover {
+  background-color: #125ea4;
+}
+
 </style>
