@@ -4,7 +4,7 @@
       <div class="container">
         <SideMenu />
         <RentalDetails class="rent" />
-        <!--<DoughnutChart />-->
+        <DoughnutChart />
         <RecentTransaction />
       </div>
     </div>
@@ -13,7 +13,7 @@
 
 <script>
 import SideMenu from '~/components/SideMenu.vue'
-// import DoughnutChart from '~/components/DoughnutChart.vue'
+import DoughnutChart from '~/components/DoughnutChart.vue'
 import RentalDetails from '~/components/RentalDetails.vue'
 import RecentTransaction from '~/components/RecentTransaction.vue'
 
@@ -22,7 +22,7 @@ export default {
   components: {
     RentalDetails,
     SideMenu,
-    // DoughnutChart,
+    DoughnutChart,
     RecentTransaction
   },
   layout: 'detail'
