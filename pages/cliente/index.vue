@@ -6,12 +6,6 @@
       </div>
       <div class="ac">
         <div class="form-section">
-          <pickUp2 :cars="cars" />
-        </div>
-        <button class="swap-button" @click="swapLocations">
-          ⇄
-        </button>
-        <div class="form-section">
           <pickUp :cars="cars" />
         </div>
       </div>
@@ -26,15 +20,13 @@
 import detailRental from '@/components/detailRental.vue'
 import target from '@/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
 
 export default {
   name: 'AdminIndexPage',
   components: {
     detailRental,
     target,
-    pickUp,
-    pickUp2
+    pickUp
   },
   layout: 'detail',
   middleware: [

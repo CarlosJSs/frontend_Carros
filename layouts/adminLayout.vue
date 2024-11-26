@@ -119,7 +119,7 @@ export default {
         {
           icon: 'mdi-chart-bar',
           title: 'Insight',
-          to: '#'
+          to: '/admin/grafic'
         },
         {
           icon: 'mdi-wallet-bifold-outline',

@@ -7,12 +7,6 @@
       <div>
         <div class="ac">
           <div class="form-section">
-            <pickUp2 :cars="cars" />
-          </div>
-          <button class="swap-button" @click="swapLocations">
-            ⇄
-          </button>
-          <div class="form-section">
             <pickUp :cars="cars" />
           </div>
         </div>
@@ -25,24 +19,19 @@
 </template>
 
 <script>
-import cars from '@/components/cars.vue'
-import detail from '@/components/detailRental.vue'
+import cars from '~/components/cars.vue'
+import detail from '~/components/detailRental.vue'
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
 
 export default {
   name: 'HomePage',
   components: {
     cars,
     pickUp,
-    pickUp2,
     detail
   },
   layout: 'detail',
-  middleware: [
-    'detect-push',
-    'auth-role'
-  ],
+  middleware: 'detect-push',
   data () {
     return {
       showLoginF: true,

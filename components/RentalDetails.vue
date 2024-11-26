@@ -2,23 +2,22 @@
   <div class="rental-details">
     <h3>Details Rental</h3>
     <div class="map-preview">
-      <img src="~/assets/mapa.png" alt="Car Image" />
+      <img src="~/assets/mapa.png" alt="Car Image">
     </div>
     <div class="details">
       <h4>Nissan GT-R</h4>
       <p>Sport Car</p>
       <div class="locations">
         <div class="pick">
-          <pickUp2></pickUp2>
-        </div>
-        <div class="pick">
-          <pickUp></pickUp>
+          <pickUp />
         </div>
       </div>
       <br>
       <div class="price">
         <strong style="font-size: 20px">Total Rent Price</strong>
-        <p class="total-price">$80.00</p>
+        <p class="total-price">
+          $80.00
+        </p>
       </div>
     </div>
   </div>
@@ -26,12 +25,10 @@
 
 <script>
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
 export default {
   name: 'RentalDetails',
   components: {
-    pickUp,
-    pickUp2
+    pickUp
   }
 }
 </script>
@@ -61,8 +58,5 @@ export default {
 }
 .pick{
   width: 700px;
-}
-.img{
-
 }
 </style>
