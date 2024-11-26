@@ -4,20 +4,15 @@
       <div class="hero-section">
         <target :cars="cars" />
       </div>
-      <div class="ac">
-        <div class="form-section">
-          <pickUp2 :cars="cars" />
-        </div>
-        <button @click="swapLocations" class="swap-button">
-          ⇄
-        </button>
-        <div class="form-section">
-          <pickUp :cars="cars" />
-        </div>
+      <div class="form-section">
+        <pickUp :cars="cars" />
       </div>
-      <div class="popular-section">
-        <detailRental :cars="cars" />
-      </div>
+    </div>
+    <div class="popular-section">
+      <detailRental :cars="cars" />
+    </div>
+    <div>
+      <footerq :cars ="cars"></footerq>
     </div>
   </v-row>
 </template>
@@ -26,15 +21,15 @@
 import detailRental from '@/components/detailRental.vue'
 import target from '~/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
+import footerq from '~/components/footerHome.vue'
 
 export default {
   name: 'HomePage',
   components: {
     detailRental,
     target,
-    pickUp,
-    pickUp2
+    footerq,
+    pickUp
   },
   layout: 'detail',
   middleware: 'detect-push',
@@ -59,19 +54,7 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
-.ac{
-  display: flex;
-  gap: 15px;
-}
-button {
-  background-color: #1976d2;
-  color: white;
-  padding: 10px;
-  height: 50px;
-  align-self: center;
-  border: none;
-  border-radius: 5px;
-}
+
 .container {
   width: 90%;
   max-width: 1200px;

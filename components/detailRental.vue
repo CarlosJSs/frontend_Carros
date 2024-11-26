@@ -3,14 +3,25 @@
     <h3>Popular Cars</h3>
     <div class="cars-grid">
       <div v-for="(car, index) in cars" :key="index" class="car-card">
-        <img src="~/assets/c1.png" alt="Car Image" />
-        <div class="car-info">
+        <div class="card-header">
           <h4>{{ car.name }}</h4>
-          <p>{{ car.type }}</p>
-          <span><i class="fas fa-gas-pump"></i> Gasoline</span>
-          <span><i class="fas fa-cogs"></i> Manual</span>
-          <span><i class="fas fa-user-friends"></i> 4 Passengers</span>
-          <p>${{ car.price }} / day</p>
+          <i class="fas fa-heart favorite-icon"></i>
+        </div>
+        <p class="car-type">{{ car.type }}</p>
+        <img src="~/assets/c1.png" alt="Car Image" class="car-image" />
+        <div class="car-info">
+          <span class="info-item">
+            <i class="fas fa-gas-pump"></i> {{ car.fuel }}
+          </span>
+          <span class="info-item">
+            <i class="fas fa-cogs"></i> {{ car.transmission }}
+          </span>
+          <span class="info-item">
+            <i class="fas fa-user"></i> {{ car.passengers }} People
+          </span>
+        </div>
+        <div class="car-footer">
+          <p class="price">${{ car.price }}.00 / day</p>
           <button @click="rentCar(car)">Rent Now</button>
         </div>
       </div>
@@ -33,36 +44,82 @@ export default {
   }
 }
 </script>
-
-<style scoped>
+<style>
 .popular-cars {
   padding: 20px;
+  font-family: Arial, sans-serif;
 }
 .cars-grid {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
-  justify-content: space-around;
+  gap: 20px;
+  justify-content: center;
 }
 .car-card {
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 8px;
-  width: calc(33% - 20px);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative;
 }
-.car-card img {
-  width: 100%;
-  border-radius: 5px;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.card-header h4 {
+  font-size: 18px;
+  margin: 0;
+}
+.favorite-icon {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+.car-type {
+  color: #7a7a7a;
+  font-size: 14px;
   margin-bottom: 15px;
+}
+.car-image {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.car-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #7a7a7a;
+  margin-bottom: 15px;
+}
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.car-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.price {
+  font-size: 18px;
+  font-weight: bold;
 }
 button {
   background-color: #1976d2;
   color: white;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 14px;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+button:hover {
+  background-color: #1259a1;
 }
 </style>

@@ -20,6 +20,29 @@
       <label>Time</label><br>
       <input type="time" v-model="pickupTime">
     </div>
+    <button @click="swapLocations" class="swap-button">
+      ⇄
+    </button>
+    <div class="form-group">
+      <label>Pick-Up </label><br>
+      <label> Location</label><br>
+      <select v-model="pickupLocation">
+        <option disabled value="">
+          Select a city
+        </option>
+        <option v-for="city in cities" :key="city">
+          {{ city }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Date</label><br>
+      <input type="date" v-model="pickupDate">
+    </div>
+    <div class="form-group">
+      <label>Time</label><br>
+      <input type="time" v-model="pickupTime">
+    </div>
   </div>
 </template>
 
@@ -45,14 +68,24 @@ export default {
 </script>
 
 <style scoped>
+
 .pickup-form {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
   align-items: center;
   justify-content: space-between;
+  gap: 15px;
 }
 .form-group {
   flex: 1;
+}
+button {
+  background-color: #1976d2;
+  color: white;
+  padding: 10px;
+  height: 50px;
+  align-self: center;
+  border: none;
+  border-radius: 5px;
 }
 </style>
