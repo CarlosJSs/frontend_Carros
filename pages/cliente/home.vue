@@ -4,20 +4,15 @@
       <div class="hero-section">
         <target :cars="cars" />
       </div>
-      <div class="ac">
-        <div class="form-section">
-          <pickUp2 :cars="cars" />
-        </div>
-        <button @click="swapLocations" class="swap-button">
-          ⇄
-        </button>
-        <div class="form-section">
-          <pickUp :cars="cars" />
-        </div>
+      <div>
+        <pickUp :cars="cars" />
       </div>
-      <div class="popular-section">
-        <detailRental :cars="cars" />
-      </div>
+    </div>
+    <div class="popular-section">
+      <detailRental :cars="cars" />
+    </div>
+    <div>
+      <footerq :cars ="cars"></footerq>
     </div>
   </v-row>
 </template>
@@ -26,7 +21,7 @@
 import detailRental from '@/components/detailRental.vue'
 import target from '~/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
+import footerq from '~/components/footerHome.vue'
 
 export default {
   name: 'HomePage',
@@ -34,7 +29,7 @@ export default {
     detailRental,
     target,
     pickUp,
-    pickUp2
+    footerq
   },
   layout: 'detail',
   middleware: 'detect-push',

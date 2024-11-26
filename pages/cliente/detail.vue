@@ -7,12 +7,6 @@
       <div>
         <div class="ac">
           <div class="form-section">
-            <pickUp2 :cars="cars" />
-          </div>
-          <button @click="swapLocations" class="swap-button">
-            ⇄
-          </button>
-          <div class="form-section">
             <pickUp :cars="cars" />
           </div>
         </div>
@@ -28,14 +22,12 @@
 import cars from '~/components/cars.vue'
 import detail from '~/components/detailRental.vue'
 import pickUp from '@/components/pick-up.vue'
-import pickUp2 from '@/components/pickUp02.vue'
 
 export default {
   name: 'HomePage',
   components: {
     cars,
     pickUp,
-    pickUp2,
     detail
   },
   layout: 'detail',
