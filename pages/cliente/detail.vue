@@ -1,14 +1,12 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
     <div class="container">
-      <div class="hero-section">
+      <div class="hero">
         <cars :cars="cars" /> <!-- Agrega el componente detailRental -->
       </div>
       <div>
-        <div class="ac">
-          <div class="form-section">
-            <pickUp :cars="cars" />
-          </div>
+        <div>
+          <pickUp :cars="cars" />
         </div>
         <div class="popular-section">
           <detail :cars="cars" />
@@ -48,7 +46,7 @@ export default {
   <style scoped>
   .index-background {
     background-color: rgb(234, 242, 255);
-    width: 100vw;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -58,13 +56,6 @@ export default {
     padding: 0;
     box-sizing: border-box;
   }
-  .form-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 530px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
 
 button {
   background-color: #1976d2;
@@ -77,7 +68,7 @@ button {
 }
   .container{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 16px;
     width: 100%;
@@ -86,13 +77,8 @@ button {
     margin: 0; /* Elimina márgenes */
   padding: 0;
 }
-.hero-section {
-  margin: 0; /* Elimina márgenes */
-  padding: 0;
-}
-.ac{
-  display: flex;
-  width: 980px;
-  gap: 15px;
+.hero{
+  flex: 1;
+  ;
 }
   </style>

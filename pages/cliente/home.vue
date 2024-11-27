@@ -54,10 +54,7 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
-.ac{
-  display: flex;
-  gap: 15px;
-}
+
 button {
   background-color: #1976d2;
   color: white;
@@ -74,13 +71,7 @@ button {
 .hero-section {
   margin-bottom: 20px;
 }
-.form-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 530px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
+
 .popular-section {
   margin-top: 20px;
   width: 100%;

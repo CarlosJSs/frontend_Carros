@@ -109,7 +109,6 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
@@ -134,6 +133,7 @@ export default {
   .car-cards {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     padding: 20px;
   }
   .car-card {
