@@ -51,7 +51,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .popular-cars {
   padding: 20px;
   font-family: Arial, sans-serif;

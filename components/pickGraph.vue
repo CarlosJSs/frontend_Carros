@@ -25,14 +25,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Botón de intercambio -->
-    <div class="swap-button-container">
-      <button class="swap-button" @click="swapLocations">
-        ⇄
-      </button>
-    </div>
-
     <!-- Panel de Drop-Off -->
     <div class="form-panel">
       <h4>Drop-Off</h4>
@@ -90,7 +82,6 @@ export default {
   align-items: center;
   background-color: #f9fafc;
   border-radius: 10px;
-  padding: 20px;
   justify-content: center;
   flex-wrap: wrap;
   flex-direction: row;

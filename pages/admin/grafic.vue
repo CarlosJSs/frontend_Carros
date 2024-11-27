@@ -1,18 +1,14 @@
 <template>
-  <v-row justify="center" align="center" class="index-background">
-    <div id="app">
-      <div class="container">
-        <SideMenu />
-        <RentalDetails class="rent" />
-        <DoughnutChart />
-        <RecentTransaction />
-      </div>
+  <v-row justify="center" class="index-background">
+    <RentalDetails class="leftSide" />
+    <div class="rightSide">
+      <DoughnutChart class="chartDiv" />
+      <RecentTransaction />
     </div>
   </v-row>
 </template>
 
 <script>
-import SideMenu from '~/components/SideMenu.vue'
 import DoughnutChart from '~/components/DoughnutChart.vue'
 import RentalDetails from '~/components/RentalDetails.vue'
 import RecentTransaction from '~/components/RecentTransaction.vue'
@@ -21,26 +17,32 @@ export default {
   name: 'Grafic',
   components: {
     RentalDetails,
-    SideMenu,
     DoughnutChart,
     RecentTransaction
   },
-  layout: 'detail'
+  layout: 'adminLayout'
 }
 </script>
 
-  <style>
-  .index-background {
+<style>
+.index-background {
   background-color: #f5f5f5;
-
+  padding: 1.6em 2em;
 }
-  .container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
-.rent{
-  width: 655px;
+.leftSide {
+  width: 46%;
+  height: 100%
+}
+.rightSide {
+  width: 34%;
+  height: 100%;
+  margin-left: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.chartDiv {
+  margin-bottom: 2em;
 }
 </style>
