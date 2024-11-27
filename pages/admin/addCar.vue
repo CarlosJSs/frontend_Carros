@@ -33,7 +33,7 @@ export default {
     loadCarros () {
       this.token = Cookies.get('token')
 
-      this.$axios.get('/cars/', {
+      this.$axios.get('/cars', {
         headers: {
           Authorization: `Bearer ${this.token}`
         }

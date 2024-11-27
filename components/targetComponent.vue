@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .carousel-wrapper {
   display: flex;
   transition: transform 0.5s ease-in-out;

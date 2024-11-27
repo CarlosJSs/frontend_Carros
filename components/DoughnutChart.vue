@@ -1,6 +1,8 @@
 <template>
   <div class="chart-container">
-    <h3>Top 5 Car Rental</h3>
+    <h3 class="titleChart">
+      Top 5 Car Rental
+    </h3>
     <!-- Contenedor para el gráfico -->
     <div ref="chart" class="chart" />
   </div>
@@ -105,20 +107,23 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: auto;
+  margin-top: 0;
   width: 100%;
   max-width: 600px;
+  background-color: white;
+  border-radius: 16px;
+  padding: 2em;
+  padding-bottom: 0;
 }
-
-h3 {
-  text-align: center;
-  margin-bottom: 30px;
-  font-size: 1.5rem;
-  color: #374151;
+.titleChart {
+  text-align: start;
+  width: 100%;
+  color: #1a202c;
+  font-weight: 700;
+  font-size: 1.4em;
 }
-
 .chart {
   width: 100%;
-  height: 400px;
+  height: 280px;
 }
 </style>

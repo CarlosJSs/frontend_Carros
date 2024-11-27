@@ -52,7 +52,7 @@
 <script>
 export default {}
 </script>
-<style>
+<style scoped>
 .footer {
   background-color: #fff;
   padding: 40px 20px;
