@@ -7,9 +7,9 @@
       <div>
         <pickUp :cars="cars" />
       </div>
-    </div>
-    <div class="popular-section">
-      <detailRental :cars="cars" />
+      <div class="popular-section">
+        <detailRental :cars="cars" />
+      </div>
     </div>
     <div class="footer">
       <footerq :cars="cars" />
@@ -40,6 +40,27 @@ export default {
         { name: 'Nissan GT-R', type: 'Sport', price: 80 },
         { name: 'Rolls-Royce', type: 'Sedan', price: 96 }
       ]
+    }
+  },
+  methods: {
+    getCars (car) {
+      this.$axios.get('/cars/')
+        .then((response) => {
+          console.log('Datos recibidos', response.data)
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
+    },
+    rentCar (car) {
+      this.$axios.get('/reserva/:id')
+        .then((response) => {
+        // const id = response.params.id
+          console.log('Datos recibidos', response.data)
+        })
+        .catch((error) => {
+          console.error('Error: ', error)
+        })
     }
   }
 }

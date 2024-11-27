@@ -117,8 +117,8 @@ export default {
   .filters {
     width: 250px;
     padding: 20px;
-    background-color: #f5f5f5;
-    border-right: 1px solid #ddd;
+    background-color: hsl(0, 0%, 100%);
+    border-right: 1px solid #ffffff;
   }
   .filters h3 {
     margin-top: 0;

@@ -1,18 +1,32 @@
 <template>
-  <v-row justify="center" align="center" class="index-background">
-    <div class="container">
+  <v-row justify="start" align="start" class="index-background">
+    <!-- Componente cars alineado a la izquierda -->
+    <v-col cols="12" md="4">
       <div class="hero">
-        <cars :cars="cars" /> <!-- Agrega el componente detailRental -->
+        <cars :cars="cars" />
       </div>
-      <div>
+    </v-col>
+
+    <!-- Contenedor principal con pickUp y popular-section debajo -->
+    <v-col cols="12" md="8">
+      <div class="container">
+        <!-- PickUp en la parte superior -->
         <div>
           <pickUp :cars="cars" />
         </div>
+        <!-- Popular-section debajo de pickUp -->
         <div class="popular-section">
           <detail :cars="cars" />
         </div>
       </div>
-    </div>
+    </v-col>
+
+    <!-- Footer -->
+    <v-col cols="12">
+      <div class="footer">
+        <footerq :cars="cars" />
+      </div>
+    </v-col>
   </v-row>
 </template>
 
@@ -21,11 +35,14 @@ import cars from '~/components/cars.vue'
 import detail from '~/components/detailRental.vue'
 import pickUp from '@/components/pick-up.vue'
 
+import footerq from '~/components/footerHome.vue'
+
 export default {
   name: 'HomePage',
   components: {
     cars,
     pickUp,
+    footerq,
     detail
   },
   layout: 'detail',
@@ -43,19 +60,36 @@ export default {
 }
 </script>
 
-  <style scoped>
-  .index-background {
-    background-color: rgb(234, 242, 255);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 0; /* Elimina márgenes */
-    padding: 0;
-    box-sizing: border-box;
-  }
+<style scoped>
+.index-background {
+  background-color: rgb(234, 242, 255);
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column; /* Asegura que pickUp y popular-section se apilen verticalmente */
+  gap: 16px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  margin-top: -32px;
+}
+
+.footer {
+  width: 100%;
+}
+
+.popular-section {
+  margin: 0;
+  padding: 0;
+}
 
 button {
   background-color: #1976d2;
@@ -66,19 +100,5 @@ button {
   border: none;
   border-radius: 5px;
 }
-  .container{
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 16px;
-    width: 100%;
-  }
-  .popular-section {
-    margin: 0; /* Elimina márgenes */
-  padding: 0;
-}
-.hero{
-  flex: 1;
-  ;
-}
+
   </style>
