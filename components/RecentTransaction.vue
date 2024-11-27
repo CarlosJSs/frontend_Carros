@@ -2,25 +2,25 @@
   <section class="popular-cars">
     <div class="recent-transaction">
       <h3>Recent Transaction</h3>
-      <div v-for="transaction in transactions" :key="transaction.id" class="rowTransaction">
+      <div v-for="transaction in recTransact" :key="transaction.idreserva" class="rowTransaction">
         <div class="imgRowTrans">
           <img src="~/assets/c1.png" alt="Car Image" class="imgCarTrans">
         </div>
         <div class="rightInfoTrans">
           <div class="infoCarTrans">
             <p class="carNameTrans">
-              {{ transaction.name }}
+              {{ transaction.carName }}
             </p>
             <p class="typeTransCar">
-              Sport Car
+              {{ transaction.carCategory }}
             </p>
           </div>
           <div class="transInfo">
             <p class="dateTrans">
-              20 July
+              {{ transaction.fechainicio }}
             </p>
             <p class="priceTrans">
-              {{ transaction.price }}
+              {{ transaction.costo }}
             </p>
           </div>
         </div>
@@ -32,14 +32,10 @@
 <script>
 export default {
   name: 'RecentTransaction',
-  data () {
-    return {
-      transactions: [
-        { id: 1, name: 'Nissan GT-R', price: '$80.00', image: 'nissan.jpg' },
-        { id: 2, name: 'Koenigsegg', price: '$99.00', image: 'koenigsegg.jpg' },
-        { id: 3, name: 'Rolls-Royce', price: '$80.00', image: 'rollsroyce.jpg' },
-        { id: 4, name: 'CR-V', price: '$80.00', image: 'crv.jpg' }
-      ]
+  props: {
+    recTransact: {
+      type: Array,
+      required: true
     }
   }
 }
@@ -83,6 +79,12 @@ export default {
 }
 .imgCarTrans {
   width: 8em;
+}
+.transInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
 }
 .carNameTrans, .priceTrans {
   font-weight: 700;
