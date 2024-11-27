@@ -142,12 +142,13 @@ export default {
 
 .controls {
   position: absolute;
-  top: 50%;
+  top: 15%; /* Alinea el contenedor de controles con el borde superior del carrusel */
   left: 0;
   right: 0;
   display: flex;
   justify-content: space-between;
-  transform: translateY(-50%);
+  align-items: center; /* Alinea las flechas verticalmente dentro del contenedor */
+  height: 50px; /* Altura opcional para el área de controles */
 }
 
 .control-btn {
@@ -159,10 +160,10 @@ export default {
   cursor: pointer;
   font-size: 20px;
   outline: none;
+  position: relative; /* Permite ajustes finos */
 }
 
 .control-btn:hover {
   background-color: #125ea4;
 }
-
 </style>

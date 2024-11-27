@@ -13,10 +13,10 @@
         <img src="~/assets/c1.png" alt="Car Image" class="car-image">
         <div class="car-info">
           <span class="info-item">
-            <i class="fas fa-gas-pump" /> {{ car.fuel }}
+            <i class="fas fa-gas-pump" /> {{ car.fuel }} 80L
           </span>
           <span class="info-item">
-            <i class="fas fa-cogs" /> {{ car.transmission }}
+            <i class="fas fa-cogs" /> {{ car.transmission }}Manual
           </span>
           <span class="info-item">
             <i class="fas fa-user" /> {{ car.passengers }} People
@@ -58,6 +58,7 @@ export default {
 }
 .cars-grid {
   display: flex;
+  grid-template-columns: repeat(4, 1fr); /* Esto crea 4 columnas */
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;

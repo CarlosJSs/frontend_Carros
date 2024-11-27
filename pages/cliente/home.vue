@@ -11,7 +11,7 @@
     <div class="popular-section">
       <detailRental :cars="cars" />
     </div>
-    <div>
+    <div class="footer">
       <footerq :cars="cars" />
     </div>
   </v-row>
@@ -68,7 +68,7 @@ button {
   border-radius: 5px;
 }
 .container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
 }
 .hero-section {
@@ -83,5 +83,9 @@ button {
 }
 .popular-section {
   margin-top: 20px;
+  width: 100%;
+}
+.footer{
+  width: 100%;
 }
 </style>

@@ -2,9 +2,7 @@
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-section">
-        <h3 class="footer-logo">
-          MORENT
-        </h3>
+        <h3 class="footer-logo">MORENT</h3>
         <p class="footer-description">
           Our vision is to provide convenience and help increase your sales business.
         </p>
@@ -52,10 +50,11 @@
 <script>
 export default {}
 </script>
+
 <style>
 .footer {
   background-color: #fff;
-  padding: 40px 20px;
+  padding: 40px;
   font-family: Arial, sans-serif;
   color: #333;
   border-top: 1px solid #e5e5e5;
@@ -65,7 +64,7 @@ export default {}
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px; /* Espaciado entre columnas */
 }
 
 .footer-section {
@@ -86,8 +85,10 @@ export default {}
 
 .footer-links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  justify-content: space-between;
+  flex-grow: 1;
+  max-width: 600px;
+  justify-content: space-between; /* Distribuye columnas uniformemente */
 }
 
 .footer-column {
@@ -118,19 +119,17 @@ export default {}
 }
 
 .footer-column a:hover {
-  color: #7a7a7a;
+  color: #1976d2;
 }
 
 .footer-bottom {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Coloca el texto y los links en una sola línea */
   align-items: center;
   padding-top: 20px;
   border-top: 1px solid #e5e5e5;
   font-size: 14px;
   color: #7a7a7a;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .footer-policy a {
@@ -143,5 +142,4 @@ export default {}
 .footer-policy a:hover {
   color: #1976d2;
 }
-
 </style>

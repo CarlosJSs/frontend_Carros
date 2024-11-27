@@ -88,7 +88,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f9fafc;
   border-radius: 10px;
   padding: 20px;
   gap: 20px;
