@@ -44,9 +44,15 @@ export default {
     }
   },
   methods: {
-    rentCar (car) {
-      // eslint-disable-next-line no-console
-      console.log(`Alquilando el coche: ${car.name}`)
+    async rentCar (car) {
+      try {
+        const response = await this.$axios.post(`/reserva/${car.id}`)
+        console.log(`Reserva realizada para: ${car.name}`, response.data)
+        alert(`Reserva exitosa para el auto: ${car.name}`)
+      } catch (error) {
+        console.error('Error al reservar el auto:', error)
+        alert('No se pudo completar la reserva. Inténtalo nuevamente.')
+      }
     }
   }
 }

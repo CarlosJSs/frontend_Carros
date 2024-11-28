@@ -35,33 +35,33 @@ export default {
   middleware: 'detect-push',
   data () {
     return {
-      cars: [
-        { name: 'Koenigsegg', type: 'Sport', price: 99 },
-        { name: 'Nissan GT-R', type: 'Sport', price: 80 },
-        { name: 'Rolls-Royce', type: 'Sedan', price: 96 }
-      ]
+      cars: []
     }
   },
   methods: {
-    getCars (car) {
-      this.$axios.get('/cars/')
-        .then((response) => {
-          console.log('Datos recibidos', response.data)
-        })
-        .catch((error) => {
-          console.error('Error: ', error)
-        })
+    // Método para obtener datos de autos desde el backend
+    async getCars () {
+      try {
+        const response = await this.$axios.get('/cars/')
+        this.cars = response.data // Actualiza el estado con los datos recibidos
+        console.log('Datos recibidos:', this.cars)
+      } catch (error) {
+        console.error('Error al obtener autos:', error)
+      }
     },
-    rentCar (car) {
-      this.$axios.get('/reserva/:id')
-        .then((response) => {
-        // const id = response.params.id
-          console.log('Datos recibidos', response.data)
-        })
-        .catch((error) => {
-          console.error('Error: ', error)
-        })
+    // Método para realizar una reserva
+    async rentCar (car) {
+      try {
+        const response = await this.$axios.post(`/reserva/${car.id}`)
+        console.log('Reserva realizada:', response.data)
+      } catch (error) {
+        console.error('Error al reservar auto:', error)
+      }
     }
+  },
+  mounted () {
+    // Carga los datos de autos cuando se monta el componente
+    this.getCars()
   }
 }
 </script>
