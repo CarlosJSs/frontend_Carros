@@ -49,13 +49,12 @@ export default {
             } else if (role === 'cliente') {
               this.$router.push('/cliente')
             } else {
-              // eslint-disable-next-line no-console
-              console.error('Rol desconocido: ', role)
+              alert('No cuenta con un rol valido asignado.')
             }
           }
         }).catch((error) => {
-          // eslint-disable-next-line no-console
-          console.error('error login: ', error)
+          const errorMessage = error.response?.data?.message || 'Ocurrió un error al validar las credenciales.'
+          alert(errorMessage)
         })
     },
     createCliente (clienteModel) {
@@ -76,17 +75,12 @@ export default {
             'Content-type': 'application/json'
           }
         }).then((res) => {
-          // eslint-disable-next-line no-console
-          console.log('@@ res addCliente => ', res)
           if (res && res.data && res.data.success) {
-            // eslint-disable-next-line no-console
-            console.log('@@ res success => ', res.data.success)
-            // eslint-disable-next-line no-console
-            console.log('@@ userID => ', res.data.userId)
+            alert('Cliente creado con exito.')
           }
         }).catch((error) => {
-          // eslint-disable-next-line no-console
-          console.error('@@ error => ', error)
+          const errorMessage = error.response?.data?.message || 'Ocurrió un error al intentar crear la cuenta.'
+          alert(errorMessage)
         })
       }
     }

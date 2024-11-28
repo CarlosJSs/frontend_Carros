@@ -16,7 +16,10 @@ export default {
     reviewsCont
   },
   layout: 'clienteLayout',
-  middleware: 'detect-push'
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ]
 }
 </script>
 

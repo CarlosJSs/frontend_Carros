@@ -16,7 +16,10 @@ export default {
     summCard
   },
   layout: 'clienteLayout',
-  middleware: 'detect-push'
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ]
 }
 </script>
 

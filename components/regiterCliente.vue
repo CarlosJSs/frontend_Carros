@@ -27,7 +27,7 @@
         <span>Contraseña</span>
       </label>
       <label>
-        <input required="" placeholder="" type="password" class="input">
+        <input v-model="clienteModel.contraReview" required="" placeholder="" type="password" class="input">
         <span>Confirmar contraseña</span>
       </label>
       <button class="submit" @click="submitCliente">
@@ -49,7 +49,8 @@ export default {
         nombre: '',
         apellido: '',
         correo: '',
-        contrasena: ''
+        contrasena: '',
+        contraReview: ''
       }
     }
   },
@@ -58,23 +59,25 @@ export default {
       this.$emit('switchForms')
     },
     submitCliente () {
-      // eslint-disable-next-line no-console
-      console.log('entre a submitCliente')
-      if (this.clienteModel.nombre && this.clienteModel.apellido && this.clienteModel.correo && this.clienteModel.contrasena) {
-        this.$emit('addClienteEvent', {
-          ...this.clienteModel,
-          rol: 'cliente'
-        })
+      if (this.clienteModel.nombre && this.clienteModel.apellido && this.clienteModel.correo && this.clienteModel.contrasena && this.clienteModel.contraReview) {
+        if (this.clienteModel.contrasena === this.clienteModel.contraReview) {
+          this.$emit('addClienteEvent', {
+            ...this.clienteModel,
+            rol: 'cliente'
+          })
 
-        this.clienteModel = {
-          nombre: '',
-          apellido: '',
-          correo: '',
-          contrasena: ''
+          this.clienteModel = {
+            nombre: '',
+            apellido: '',
+            correo: '',
+            contrasena: '',
+            contraReview: ''
+          }
+        } else {
+          alert('Las contraseñas no coinciden.')
         }
       } else {
-        // eslint-disable-next-line no-console
-        console.log('no entre')
+        alert('Todos los campos son requeridos')
       }
     }
   }

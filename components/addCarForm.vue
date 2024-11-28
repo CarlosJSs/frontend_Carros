@@ -24,7 +24,29 @@
         <div class="labelInput">
           Categoria
         </div>
-        <input v-model="carModel.categoria" type="text" placeholder="Categoria" class="inputInfo">
+        <select v-model="carModel.categoria" class="inputInfo">
+          <option value="" disabled>
+            Seleccione una categoría
+          </option>
+          <option value="Sport">
+            Sport
+          </option>
+          <option value="SUV">
+            SUV
+          </option>
+          <option value="MPV">
+            MPV
+          </option>
+          <option value="Sedan">
+            Sedan
+          </option>
+          <option value="Coupe">
+            Coupe
+          </option>
+          <option value="Hatchback">
+            Hatchback
+          </option>
+        </select>
       </div>
     </div>
     <div class="rowInputs">
@@ -32,7 +54,7 @@
         <div class="labelInput">
           Capacidad del tanque
         </div>
-        <input v-model="carModel.capacidad_tanque" type="number" placeholder="En litros" class="inputInfo inputDT">
+        <input v-model="carModel.capacidad_tanque" type="number" placeholder="En litros" class="inputInfo inputDT" min="0">
       </div>
       <div class="labelAndInput">
         <div class="labelInput">
@@ -46,13 +68,20 @@
         <div class="labelInput">
           Precio
         </div>
-        <input v-model="carModel.precio" type="number" placeholder="En dolares" class="inputInfo inputDT">
+        <input v-model="carModel.precio" type="number" placeholder="En dolares" class="inputInfo inputDT" min="0">
       </div>
       <div class="labelAndInput">
         <div class="labelInput">
           Rating
         </div>
-        <input v-model="carModel.rating" type="number" placeholder="Estrellas" class="inputInfo inputDT">
+        <input
+          v-model="carModel.rating"
+          type="number"
+          placeholder="Estrellas"
+          class="inputInfo inputDT"
+          min="0"
+          max="5"
+        >
       </div>
     </div>
     <div class="rowInputs">
@@ -60,7 +89,7 @@
         <div class="labelInput">
           Pasajeros
         </div>
-        <input v-model="carModel.pasajeros" type="number" placeholder="Capacidad de pasajeros" class="inputInfo inputDT">
+        <input v-model="carModel.pasajeros" type="number" placeholder="Capacidad de pasajeros" class="inputInfo inputDT" min="0">
       </div>
     </div>
     <div class="rowInputs">

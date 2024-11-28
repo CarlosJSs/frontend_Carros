@@ -1,38 +1,38 @@
 <template>
-  <v-row justify="center" align="start" class="index-background">
+  <v-row justify="center" align="center" class="index-background">
     <div class="container">
       <div class="hero-section">
         <target :cars="cars" />
       </div>
-      <div class="ac">
-        <div class="form-section">
-          <pickUp :cars="cars" />
-        </div>
+      <div>
+        <pickUp :cars="cars" />
       </div>
-      <div class="popular-section">
-        <detailRental :cars="cars" />
-      </div>
+    </div>
+    <div class="popular-section">
+      <detailRental :cars="cars" />
+    </div>
+    <div>
+      <footerq :cars="cars" />
     </div>
   </v-row>
 </template>
 
 <script>
 import detailRental from '@/components/detailRental.vue'
-import target from '@/components/targetComponent.vue'
+import target from '~/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
+import footerq from '~/components/footerHome.vue'
 
 export default {
-  name: 'AdminIndexPage',
+  name: 'HomePage',
   components: {
     detailRental,
     target,
-    pickUp
+    pickUp,
+    footerq
   },
   layout: 'detail',
-  middleware: [
-    'detect-push',
-    'auth-role'
-  ],
+  middleware: 'detect-push',
   data () {
     return {
       cars: [
@@ -47,11 +47,12 @@ export default {
 
 <style scoped>
 .index-background {
-  background-color: #f6f7f9;
+  background-color: #f5f5f5;
   width: 100vw;
-  height: auto;
-  padding-top: 6vh;
-  padding-bottom: 6vh;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 .ac{
   display: flex;
