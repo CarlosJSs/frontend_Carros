@@ -30,8 +30,8 @@ export default {
     }
   },
   mounted () {
-    this.loadRecentTrans()
     this.loadCarrosInfo()
+    this.loadRecentTrans()
   },
   methods: {
     loadRecentTrans () {
