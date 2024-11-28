@@ -177,16 +177,15 @@ export default {
   font-family: 'Plus Jakarta Sans';
 }
 
-/* Header a todo lo ancho */
 .header {
   width: 100%;
-  height: 100px; /* Altura del header */
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: white;
   color: black;
-  position: fixed; /* Fijo en la parte superior */
+  position: fixed;
   top: 0;
   z-index: 10;
   padding: 0 16px;
@@ -225,40 +224,36 @@ export default {
   color: #3d5278;
 }
 
-/* Contenedor principal */
 .main-container {
   display: flex;
-  margin-top: 100px; /* Margen igual a la altura del header */
-  height: calc(100vh - 100px) !important; /* Altura restante debajo del header */
+  margin-top: 100px;
+  height: calc(100vh - 100px) !important;
 }
 
-/* Navigation drawer */
 .containerMenu {
   width: 240px;
   background-color: white;
-  margin-top: 100px; /* Asegura que no se superponga con el header */
-  height: calc(100vh - 100px) !important; /* Ocupa la altura restante */
+  margin-top: 100px;
+  height: calc(100vh - 100px) !important;
   padding: 1em;
 }
 
-/* Contenedor principal */
 .myContainer {
   flex: 1;
   padding: 16px;
 }
 
 .container {
-  max-width: none !important; /* Sobrescribe el ancho máximo */
+  max-width: none !important;
 }
 
-/* Listas de navegación */
 .firstList {
   margin-bottom: 3em;
 }
 
 .lastList {
   position: absolute;
-  bottom: 6vh;
+  bottom: 3vh;
 }
 
 .listTitle {
