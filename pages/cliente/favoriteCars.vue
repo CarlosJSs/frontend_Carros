@@ -68,6 +68,11 @@ export default {
     this.loadCarros()
   },
   methods: {
+    rentCar (car) {
+      this.$emit('submitCar', {
+        ...car
+      })
+    },
     loadCarros () {
       this.token = Cookies.get('token')
 
