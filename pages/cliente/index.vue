@@ -5,7 +5,7 @@
         <target />
       </div>
       <div>
-        <pickUp />
+        <pickUp @rentDataEvent="setDataResv" />
       </div>
       <div class="popular-section">
         <detailRental :cars="cars" @submitCar="chooseCar" />
@@ -87,6 +87,14 @@ export default {
         path: '/cliente/detailCar',
         query: rentalData
       })
+    },
+    setDataResv (data) {
+      this.fechaInicio = data.pickupDate
+      this.fechaFin = data.dropoffDate
+      this.horaInicio = data.pickupTime
+      this.horaFin = data.dropoffTime
+      this.ciudadInicio = data.pickupLocation
+      this.ciudadFin = data.dropoffLocation
     }
   }
 }

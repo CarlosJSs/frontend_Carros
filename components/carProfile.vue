@@ -168,7 +168,7 @@ export default {
   font-family: 'Plus Jakarta Sans';
   background-color: #f6f7f9;
   border-radius: 16px;
-  padding: 2em 1em;
+  padding: 2em 0;
   height: 510px;
 }
 .imagesContainer {

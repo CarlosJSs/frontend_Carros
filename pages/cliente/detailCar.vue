@@ -31,12 +31,14 @@ export default {
       carro: {},
       carroID: '',
       reviews: [],
-      cars: []
+      cars: [],
+      dataResv: {}
     }
   },
   mounted () {
     const rentalData = this.$route.query
     this.carroID = rentalData.id
+    this.dataResv = rentalData
 
     if (this.carroID) {
       this.loadCarro()
@@ -111,7 +113,12 @@ export default {
 
       this.$router.push({
         path: '/cliente/billing',
-        query: this.carro
+        query: {
+          ...this.dataResv,
+          nombre: this.carro.nombre,
+          precio: this.carro.precio,
+          rating: this.carro.rating
+        }
       })
     }
   }
