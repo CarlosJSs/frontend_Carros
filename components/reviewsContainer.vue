@@ -10,18 +10,8 @@
         </div>
       </div>
       <div class="mainSection">
-        <div class="reviewItem">
-          <reviewCard />
-        </div>
-        <div class="reviewItem">
-          <reviewCard
-            :desc-review="'We are greatly helped by the services of the MORENT Application. Morent has low prices and also a wide variety of cars with good and comfortable facilities. In addition, the service provided by the officers is also very friendly and very polite.'"
-            :date-rev="'20 July 2022'"
-            :num-stars="3"
-            :user-name="'Skylar Dias'"
-            :work-user="'CEO at Amazon'"
-            :img-user="require('@/assets/usuario2.jpg')"
-          />
+        <div v-for="(rev, index) in reviewsarray" :key="index" class="reviewItem">
+          <reviewCard :reviewinfo="rev" />
         </div>
       </div>
       <div class="footerSection">
@@ -48,6 +38,11 @@ export default {
       type: Number,
       required: true,
       default: 13
+    },
+    reviewsarray: {
+      type: Array,
+      required: true,
+      default: () => ([])
     }
   }
 }
@@ -56,7 +51,6 @@ export default {
 <style>
 .reviewsContainer {
   background-color: #ffffff;
-  width: 70vw;
   border-radius: 16px;
   padding: 1.6em 1.4em;
   font-family: 'Plus Jakarta Sans';

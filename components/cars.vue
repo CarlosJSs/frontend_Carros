@@ -3,26 +3,26 @@
     <!-- Sidebar Filters -->
     <aside class="filters">
       <h3>Type</h3>
-      <label><input type="checkbox" v-model="filters.type.sport"> Sport (10)</label>
-      <label><input type="checkbox" v-model="filters.type.suv"> SUV (12)</label>
-      <label><input type="checkbox" v-model="filters.type.mpv"> MPV (6)</label>
-      <label><input type="checkbox" v-model="filters.type.sedan"> Sedan (20)</label>
-      <label><input type="checkbox" v-model="filters.type.coupe"> Coupe (14)</label>
-      <label><input type="checkbox" v-model="filters.type.hatchback"> Hatchback (14)</label>
+      <label><input v-model="filters.type.sport" type="checkbox"> Sport (10)</label>
+      <label><input v-model="filters.type.suv" type="checkbox"> SUV (12)</label>
+      <label><input v-model="filters.type.mpv" type="checkbox"> MPV (6)</label>
+      <label><input v-model="filters.type.sedan" type="checkbox"> Sedan (20)</label>
+      <label><input v-model="filters.type.coupe" type="checkbox"> Coupe (14)</label>
+      <label><input v-model="filters.type.hatchback" type="checkbox"> Hatchback (14)</label>
       <h3>Capacity</h3>
-      <label><input type="checkbox" v-model="filters.capacity.twoPerson"> 2 Person (10)</label>
-      <label><input type="checkbox" v-model="filters.capacity.fourPerson"> 4 Person (14)</label>
-      <label><input type="checkbox" v-model="filters.capacity.sixPerson"> 6 Person (12)</label>
-      <label><input type="checkbox" v-model="filters.capacity.eightPlus"> 8 or More (16)</label>
+      <label><input v-model="filters.capacity.twoPerson" type="checkbox"> 2 Person (10)</label>
+      <label><input v-model="filters.capacity.fourPerson" type="checkbox"> 4 Person (14)</label>
+      <label><input v-model="filters.capacity.sixPerson" type="checkbox"> 6 Person (12)</label>
+      <label><input v-model="filters.capacity.eightPlus" type="checkbox"> 8 or More (16)</label>
 
       <h3>Price</h3>
-      <input type="range" v-model="filters.price" min="0" max="100">
+      <input v-model="filters.price" type="range" min="0" max="100">
       <p>Max. ${{ filters.price }}.00</p>
     </aside>
 
     <!-- Car Cards Section -->
     <section class="car-cards">
-      <div class="car-card" v-for="(car, index) in filteredCars" :key="index">
+      <div v-for="(car, index) in filteredCars" :key="index" class="car-card">
         <h4>{{ car.name }}</h4>
         <p>{{ car.type }}</p>
         <img :src="car.image" alt="Car Image">
@@ -98,6 +98,7 @@ export default {
   },
   methods: {
     rentCar (car) {
+      // eslint-disable-next-line no-console
       console.log(`Renting the car: ${car.name}`)
     }
   }
@@ -109,7 +110,6 @@ export default {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
@@ -118,8 +118,8 @@ export default {
   .filters {
     width: 250px;
     padding: 20px;
-    background-color: #f5f5f5;
-    border-right: 1px solid #ddd;
+    background-color: hsl(0, 0%, 100%);
+    border-right: 1px solid #ffffff;
   }
   .filters h3 {
     margin-top: 0;
@@ -135,6 +135,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
+    justify-content: flex-start;
   }
   .car-card {
     width: 250px;

@@ -12,7 +12,7 @@
       </div>
       <div class="infoCarSM">
         <div class="titleCarSM">
-          {{ carName }}
+          {{ carro.nombre }}
         </div>
         <div class="revCarSM">
           <div class="ratinStars">
@@ -37,7 +37,7 @@
         Subtotal
       </div>
       <div class="subTnum">
-        ${{ subTotal }}
+        ${{ carro.precio }}
       </div>
     </div>
     <div class="rowCardSM rowTax">
@@ -45,7 +45,7 @@
         Tax
       </div>
       <div class="taxNum">
-        ${{ taxes }}
+        ${{ parseFloat(carro.precio / 100 * 16) }}
       </div>
     </div>
     <div class="rowCardSM rowInputPCode">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="rentalPriceNum">
-        ${{ total }}
+        ${{ parseFloat(carro.precio) + parseFloat(carro.precio / 100 * 16) }}
       </div>
     </div>
   </div>
@@ -73,6 +73,11 @@
 <script>
 export default {
   props: {
+    carro: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
     carName: {
       type: String,
       required: true,

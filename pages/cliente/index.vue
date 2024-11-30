@@ -1,45 +1,92 @@
 <template>
-  <v-row justify="center" align="start" class="index-background">
+  <v-row justify="center" align="center" class="index-background">
     <div class="container">
       <div class="hero-section">
-        <target :cars="cars" />
+        <target />
       </div>
-      <div class="ac">
-        <div class="form-section">
-          <pickUp :cars="cars" />
-        </div>
+      <div>
+        <pickUp />
       </div>
       <div class="popular-section">
-        <detailRental :cars="cars" />
+        <detailRental :cars="cars" @submitCar="chooseCar" />
       </div>
+    </div>
+    <div class="footer">
+      <footerq />
     </div>
   </v-row>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import detailRental from '@/components/detailRental.vue'
-import target from '@/components/targetComponent.vue'
+import target from '~/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
+import footerq from '~/components/footerHome.vue'
 
 export default {
-  name: 'AdminIndexPage',
+  name: 'HomePage',
   components: {
     detailRental,
     target,
-    pickUp
+    pickUp,
+    footerq
   },
   layout: 'detail',
-  middleware: [
-    'detect-push',
-    'auth-role'
-  ],
+  middleware: 'detect-push',
   data () {
     return {
-      cars: [
-        { name: 'Koenigsegg', type: 'Sport', price: 99 },
-        { name: 'Nissan GT-R', type: 'Sport', price: 80 },
-        { name: 'Rolls-Royce', type: 'Sedan', price: 96 }
-      ]
+      cars: [],
+      fechaInicio: '',
+      fechaFin: '',
+      horaInicio: '',
+      horaFin: '',
+      ciudadInicio: '',
+      ciudadFin: ''
+    }
+  },
+  mounted () {
+    this.loadCarros()
+  },
+  methods: {
+    loadCarros () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/cars', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('@@@ res => ', res.data)
+        if (res.data.success && Array.isArray(res.data.cars)) {
+          this.cars = res.data.cars
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
+    },
+    chooseCar (carro) {
+      const rentalData = {
+        id: carro.id,
+        fechaInicio: this.fechaInicio,
+        fechaFin: this.fechaFin,
+        horaInicio: this.horaInicio,
+        horaFin: this.horaFin,
+        ciudadInicio: this.ciudadInicio,
+        ciudadFin: this.ciudadFin
+      }
+
+      // eslint-disable-next-line no-console
+      console.log('escogi: ', carro.nombre)
+      this.$router.push({
+        path: '/cliente/detailCar',
+        query: rentalData
+      })
     }
   }
 }
@@ -47,16 +94,14 @@ export default {
 
 <style scoped>
 .index-background {
-  background-color: #f6f7f9;
+  background-color: #f5f5f5;
   width: 100vw;
-  height: auto;
-  padding-top: 6vh;
-  padding-bottom: 6vh;
-}
-.ac{
+  min-height: 100vh;
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 20px;
 }
+
 button {
   background-color: #1976d2;
   color: white;
@@ -67,20 +112,17 @@ button {
   border-radius: 5px;
 }
 .container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
 }
 .hero-section {
   margin-bottom: 20px;
 }
-.form-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 530px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
 .popular-section {
   margin-top: 20px;
+  width: 100%;
+}
+.footer {
+  width: 100%;
 }
 </style>

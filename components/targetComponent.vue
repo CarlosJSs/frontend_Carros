@@ -142,12 +142,13 @@ export default {
 
 .controls {
   position: absolute;
-  top: 50%;
+  top: 15%;
   left: 0;
   right: 0;
   display: flex;
   justify-content: space-between;
-  transform: translateY(-50%);
+  align-items: center;
+  height: 50px;
 }
 
 .control-btn {
@@ -159,6 +160,7 @@ export default {
   cursor: pointer;
   font-size: 20px;
   outline: none;
+  position: relative;
 }
 
 .control-btn:hover {
