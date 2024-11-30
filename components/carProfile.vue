@@ -21,7 +21,7 @@
         <div class="rowCard">
           <div class="carTitleDesc">
             <div class="carTitle">
-              {{ carName }}
+              {{ carroinfo.nombre }}
             </div>
             <div class="carReview">
               <div class="carStars">
@@ -48,7 +48,7 @@
         </div>
         <div class="rowCard">
           <p class="carDesc">
-            {{ carDescrip }}
+            {{ carroinfo.descripcion }}
           </p>
         </div>
         <div class="rowCard rowProps">
@@ -58,7 +58,7 @@
                 TypeCar
               </div>
               <div class="infoProp">
-                {{ typeCar }}
+                {{ carroinfo.categoria }}
               </div>
             </div>
             <div class="rowInfo secondRinf">
@@ -66,7 +66,7 @@
                 Steering
               </div>
               <div class="infoProp">
-                {{ steeringCar }}
+                {{ carroinfo.transmision }}
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
                 Capacity
               </div>
               <div class="infoProp">
-                {{ capacityCar }}
+                {{ carroinfo.pasajeros }}
               </div>
             </div>
             <div class="rowInfo secondRinf">
@@ -84,7 +84,7 @@
                 Gasoline
               </div>
               <div class="infoProp">
-                {{ gasonileCar }}
+                {{ carroinfo.capacidad_tanque }}
               </div>
             </div>
           </div>
@@ -92,16 +92,16 @@
         <div class="rowCard btnPrice">
           <div class="carPrice">
             <div class="actualPrice">
-              ${{ actualPrice }}/
+              ${{ carroinfo.precio }}/
               <span class="priceTime">
                 days
               </span>
             </div>
             <div class="prevPrice">
-              ${{ prevPrice }}
+              ${{ carroinfo.precio + 24 }}
             </div>
           </div>
-          <div class="btnRent">
+          <div class="btnRent" @click="rentCar(carroinfo.id)">
             Rent Now
           </div>
         </div>
@@ -113,45 +113,10 @@
 <script>
 export default {
   props: {
-    carName: {
-      type: String,
+    carroinfo: {
+      type: Object,
       required: true,
-      default: 'Nissan GT-R'
-    },
-    carDescrip: {
-      type: String,
-      required: true,
-      default: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, quasi modi, reiciendis quidem sapiente quam laboriosam voluptatibus quod qui accusamus sint nemo esse consectetur voluptate, ullam nam! Tempore, ullam in.'
-    },
-    typeCar: {
-      type: String,
-      required: true,
-      default: 'Sport'
-    },
-    steeringCar: {
-      type: String,
-      required: true,
-      default: 'Manual'
-    },
-    capacityCar: {
-      type: String,
-      required: true,
-      default: '2 Person'
-    },
-    gasonileCar: {
-      type: String,
-      required: true,
-      default: '70L'
-    },
-    actualPrice: {
-      type: String,
-      required: true,
-      default: '80.00'
-    },
-    prevPrice: {
-      type: String,
-      required: true,
-      default: '100.00'
+      default: () => ({})
     },
     numReviews: {
       type: String,
@@ -181,6 +146,13 @@ export default {
     estrellasWhite () {
       return Array(5 - this.numStars).fill(null)
     }
+  },
+  methods: {
+    rentCar (id) {
+      this.$emit('rentCarEvent', {
+        id
+      })
+    }
   }
 }
 </script>
@@ -195,7 +167,6 @@ export default {
   align-items: center;
   font-family: 'Plus Jakarta Sans';
   background-color: #f6f7f9;
-  width: 76vw;
   border-radius: 16px;
   padding: 2em 1em;
   height: 510px;

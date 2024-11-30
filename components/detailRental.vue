@@ -4,27 +4,27 @@
     <div class="cars-grid">
       <div v-for="(car, index) in cars" :key="index" class="car-card">
         <div class="card-header">
-          <h4>{{ car.name }}</h4>
+          <h4>{{ car.nombre }}</h4>
           <i class="fas fa-heart favorite-icon" />
         </div>
         <p class="car-type">
-          {{ car.type }}
+          {{ car.categoria }}
         </p>
         <img src="~/assets/c1.png" alt="Car Image" class="car-image">
         <div class="car-info">
           <span class="info-item">
-            <i class="fas fa-gas-pump" /> {{ car.fuel }}
+            <i class="fas fa-gas-pump" /> {{ car.capacidad_tanque }}
           </span>
           <span class="info-item">
-            <i class="fas fa-cogs" /> {{ car.transmission }}
+            <i class="fas fa-cogs" /> {{ car.transmision }}
           </span>
           <span class="info-item">
-            <i class="fas fa-user" /> {{ car.passengers }} People
+            <i class="fas fa-user" /> {{ car.pasajeros }} People
           </span>
         </div>
         <div class="car-footer">
           <p class="price">
-            ${{ car.price }}.00 / day
+            ${{ car.precio }} / day
           </p>
           <button @click="rentCar(car)">
             Rent Now
@@ -43,10 +43,18 @@ export default {
       required: true
     }
   },
+  data () {
+    return {
+      carroSelected: {
+
+      }
+    }
+  },
   methods: {
     rentCar (car) {
-      // eslint-disable-next-line no-console
-      console.log(`Alquilando el coche: ${car.name}`)
+      this.$emit('submitCar', {
+        ...car
+      })
     }
   }
 }
@@ -57,8 +65,8 @@ export default {
   font-family: Arial, sans-serif;
 }
 .cars-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   justify-content: center;
 }

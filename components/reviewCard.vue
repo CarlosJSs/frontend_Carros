@@ -8,7 +8,7 @@
         <div class="headReview">
           <div class="userInfo">
             <div class="userName">
-              {{ userName }}
+              {{ reviewinfo.idUser }}
             </div>
             <div class="userWork">
               {{ workUser }}
@@ -30,7 +30,7 @@
         </div>
         <div class="descReview">
           <p class="descR">
-            {{ descReview }}
+            {{ reviewinfo.description }}
           </p>
         </div>
       </div>
@@ -41,6 +41,11 @@
 <script>
 export default {
   props: {
+    reviewinfo: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
     imgUser: {
       type: String,
       required: true,

@@ -2,22 +2,23 @@
   <v-row justify="center" align="center" class="index-background">
     <div class="container">
       <div class="hero-section">
-        <target :cars="cars" />
+        <target />
       </div>
       <div>
-        <pickUp :cars="cars" />
+        <pickUp />
+      </div>
+      <div class="popular-section">
+        <detailRental :cars="cars" @submitCar="chooseCar" />
       </div>
     </div>
-    <div class="popular-section">
-      <detailRental :cars="cars" />
-    </div>
-    <div>
-      <footerq :cars="cars" />
+    <div class="footer">
+      <footerq />
     </div>
   </v-row>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import detailRental from '@/components/detailRental.vue'
 import target from '~/components/targetComponent.vue'
 import pickUp from '@/components/pick-up.vue'
@@ -35,11 +36,57 @@ export default {
   middleware: 'detect-push',
   data () {
     return {
-      cars: [
-        { name: 'Koenigsegg', type: 'Sport', price: 99 },
-        { name: 'Nissan GT-R', type: 'Sport', price: 80 },
-        { name: 'Rolls-Royce', type: 'Sedan', price: 96 }
-      ]
+      cars: [],
+      fechaInicio: '',
+      fechaFin: '',
+      horaInicio: '',
+      horaFin: '',
+      ciudadInicio: '',
+      ciudadFin: ''
+    }
+  },
+  mounted () {
+    this.loadCarros()
+  },
+  methods: {
+    loadCarros () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/cars', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('@@@ res => ', res.data)
+        if (res.data.success && Array.isArray(res.data.cars)) {
+          this.cars = res.data.cars
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
+    },
+    chooseCar (carro) {
+      const rentalData = {
+        id: carro.id,
+        fechaInicio: this.fechaInicio,
+        fechaFin: this.fechaFin,
+        horaInicio: this.horaInicio,
+        horaFin: this.horaFin,
+        ciudadInicio: this.ciudadInicio,
+        ciudadFin: this.ciudadFin
+      }
+
+      // eslint-disable-next-line no-console
+      console.log('escogi: ', carro.nombre)
+      this.$router.push({
+        path: '/cliente/detailCar',
+        query: rentalData
+      })
     }
   }
 }
@@ -54,10 +101,7 @@ export default {
   flex-direction: column;
   gap: 20px;
 }
-.ac{
-  display: flex;
-  gap: 15px;
-}
+
 button {
   background-color: #1976d2;
   color: white;
@@ -68,20 +112,17 @@ button {
   border-radius: 5px;
 }
 .container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
 }
 .hero-section {
   margin-bottom: 20px;
 }
-.form-section {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 530px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
 .popular-section {
   margin-top: 20px;
+  width: 100%;
+}
+.footer {
+  width: 100%;
 }
 </style>

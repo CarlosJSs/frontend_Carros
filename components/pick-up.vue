@@ -88,7 +88,6 @@ export default {
 .pickup-form {
   display: flex;
   align-items: center;
-  background-color: #f9fafc;
   border-radius: 10px;
   padding: 20px;
   justify-content: center;
