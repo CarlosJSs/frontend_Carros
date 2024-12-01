@@ -10,6 +10,11 @@
       <div class="popular-section">
         <detailRental :cars="cars" @submitCar="chooseCar" />
       </div>
+      <div class="btnMore">
+        <button @click="goDetail">
+          Show more car
+        </button>
+      </div>
     </div>
     <div class="footer">
       <footerq />
@@ -60,7 +65,7 @@ export default {
         // eslint-disable-next-line no-console
         console.log('@@@ res => ', res.data)
         if (res.data.success && Array.isArray(res.data.cars)) {
-          this.cars = res.data.cars
+          this.cars = res.data.cars.filter(car => car.istaken === 'false')
         } else {
           // eslint-disable-next-line no-console
           console.error('No es array valido')
@@ -95,12 +100,21 @@ export default {
       this.horaFin = data.dropoffTime
       this.ciudadInicio = data.pickupLocation
       this.ciudadFin = data.dropoffLocation
+    },
+    goDetail () {
+      this.$router.push('/cliente/detail')
     }
   }
 }
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  font-family: 'Plus Jakarta Sans';
+}
+
 .index-background {
   background-color: #f5f5f5;
   width: 100vw;
@@ -129,6 +143,12 @@ button {
 .popular-section {
   margin-top: 20px;
   width: 100%;
+}
+.btnMore {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 .footer {
   width: 100%;
