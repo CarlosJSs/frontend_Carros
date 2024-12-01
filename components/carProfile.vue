@@ -123,11 +123,6 @@ export default {
       required: true,
       default: '440'
     },
-    numStars: {
-      type: Number,
-      required: true,
-      default: 4
-    },
     lovedCar: {
       type: Boolean,
       required: true,
@@ -141,10 +136,12 @@ export default {
   },
   computed: {
     estrellas () {
-      return Array(this.numStars).fill(null)
+      const rating = parseInt(this.carroinfo.rating) || 0
+      return Array(Math.min(Math.max(rating, 0), 5)).fill(null)
     },
     estrellasWhite () {
-      return Array(5 - this.numStars).fill(null)
+      const rating = parseInt(this.carroinfo.rating) || 0
+      return Array(5 - Math.min(Math.max(rating, 0), 5)).fill(null)
     }
   },
   methods: {

@@ -59,6 +59,7 @@ export default {
   justify-content: center;
   align-items: center;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 900px;
 }
 .headSection {
   display: flex;
