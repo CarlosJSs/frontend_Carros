@@ -62,13 +62,14 @@ export default {
 <style scoped>
 .popular-cars {
   padding: 20px;
-  font-family: Arial, sans-serif;
+  margin-top: 2em;
 }
 .cars-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   justify-content: center;
+  margin-top: 1em;
 }
 .car-card {
   background-color: #f9f9f9;

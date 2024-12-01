@@ -6,7 +6,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Locations</label>
-          <select v-model="pickupLocation">
+          <select v-model="dataResv.pickupLocation">
             <option disabled value="">
               Select your city
             </option>
@@ -17,11 +17,11 @@
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input v-model="pickupDate" type="date">
+          <input v-model="dataResv.pickupDate" type="date">
         </div>
         <div class="form-group">
           <label>Time</label>
-          <input v-model="pickupTime" type="time">
+          <input v-model="dataResv.pickupTime" type="time">
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Locations</label>
-          <select v-model="dropoffLocation">
+          <select v-model="dataResv.dropoffLocation">
             <option disabled value="">
               Select your city
             </option>
@@ -50,11 +50,11 @@
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input v-model="dropoffDate" type="date">
+          <input v-model="dataResv.dropoffDate" type="date">
         </div>
         <div class="form-group">
           <label>Time</label>
-          <input v-model="dropoffTime" type="time">
+          <input v-model="dataResv.dropoffTime" type="time">
         </div>
       </div>
     </div>
@@ -65,20 +65,32 @@
 export default {
   data () {
     return {
-      pickupLocation: '',
-      dropoffLocation: '',
-      pickupDate: '',
-      pickupTime: '',
-      dropoffDate: '',
-      dropoffTime: '',
-      cities: ['New York', 'Los Angeles', 'Chicago', 'Houston']
+      dataResv: {
+        pickupLocation: '',
+        dropoffLocation: '',
+        pickupDate: '',
+        pickupTime: '',
+        dropoffDate: '',
+        dropoffTime: ''
+      },
+      cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Irapuato', 'Guanajuato', 'Leon']
+    }
+  },
+  watch: {
+    dataResv: {
+      deep: true,
+      handler (newValue) {
+        this.$emit('rentDataEvent', {
+          ...newValue
+        })
+      }
     }
   },
   methods: {
     swapLocations () {
-      const temp = this.pickupLocation
-      this.pickupLocation = this.dropoffLocation
-      this.dropoffLocation = temp
+      const temp = this.dataResv.pickupLocation
+      this.dataResv.pickupLocation = this.dataResv.dropoffLocation
+      this.dataResv.dropoffLocation = temp
     }
   }
 }

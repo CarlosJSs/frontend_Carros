@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center" align="center" class="index-background" direction="column">
-    <carProfile v-if="carro" :carroinfo="carro" @rentCarEvent="rentarCarro" />
-    <reviewsCont :num-reviews="200" :reviewsarray="reviews" />
+    <carProfile v-if="carro" :carroinfo="carro" :num-reviews="reviews.length" @rentCarEvent="rentarCarro" />
+    <reviewsCont :num-reviews="reviews.length" :reviewsarray="reviews" />
     <div class="carrosCards">
       <detailRental :cars="cars" />
     </div>
@@ -31,17 +31,23 @@ export default {
       carro: {},
       carroID: '',
       reviews: [],
-      cars: []
+      cars: [],
+      dataResv: {}
     }
   },
   mounted () {
     const rentalData = this.$route.query
     this.carroID = rentalData.id
+    this.dataResv = rentalData
 
     if (this.carroID) {
       this.loadCarro()
-      this.loadReviews()
-      this.loadCarros()
+      setTimeout(() => {
+        this.loadReviews()
+      }, 200)
+      setTimeout(() => {
+        this.loadCarros()
+      }, 1000)
     } else {
       // eslint-disable-next-line no-console
       console.error('No se recibio un ID de carro')
@@ -57,6 +63,8 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
+          // eslint-disable-next-line no-console
+          console.log('carro: ', res.data.car)
           this.carro = res.data.car
         }
       }).catch((error) => {
@@ -73,9 +81,9 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
-          this.reviews = res.data.reviews
+          this.reviews = res.data.reviews.filter(review => review.idCar === this.carroID)
           // eslint-disable-next-line no-console
-          console.log('reviews: ', res.data)
+          console.log('reviews filtradas: ', this.reviews)
         }
       }).catch((error) => {
         // eslint-disable-next-line no-console
@@ -108,10 +116,17 @@ export default {
       console.log('rentando, id: ', id)
       // eslint-disable-next-line no-console
       console.log('carro: ', this.carro)
+      // eslint-disable-next-line no-console
+      console.log('rating: ', this.carro.rating)
 
       this.$router.push({
         path: '/cliente/billing',
-        query: this.carro
+        query: {
+          ...this.dataResv,
+          nombre: this.carro.nombre,
+          precio: this.carro.precio,
+          rating: this.carro.rating
+        }
       })
     }
   }

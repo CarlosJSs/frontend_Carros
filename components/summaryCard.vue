@@ -78,48 +78,25 @@ export default {
       required: true,
       default: () => ({})
     },
-    carName: {
-      type: String,
-      required: true,
-      default: 'Nissan GT-R'
-    },
     carIMG: {
       type: String,
       required: true,
       default: () => require('@/assets/cardSummaryExample.png')
     },
-    numStars: {
-      type: Number,
-      required: true,
-      default: 4
-    },
     numReviewers: {
       type: Number,
       required: true,
       default: 440
-    },
-    subTotal: {
-      type: Number,
-      required: true,
-      default: 80.01
-    },
-    taxes: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    total: {
-      type: Number,
-      required: true,
-      default: 80.01
     }
   },
   computed: {
     estrellas () {
-      return Array(this.numStars).fill(null)
+      const rating = parseInt(this.carro.rating) || 0
+      return Array(Math.min(Math.max(rating, 0), 5)).fill(null)
     },
     estrellasWhite () {
-      return Array(5 - this.numStars).fill(null)
+      const rating = parseInt(this.carro.rating) || 0
+      return Array(5 - Math.min(Math.max(rating, 0), 5)).fill(null)
     }
   }
 }
