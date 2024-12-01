@@ -1,9 +1,14 @@
 <template>
   <v-row justify="center" align="center" class="index-background" direction="column">
-    <carProfile v-if="carro" :carroinfo="carro" :num-reviews="reviews.length" @rentCarEvent="rentarCarro" />
-    <reviewsCont :num-reviews="reviews.length" :reviewsarray="reviews" />
-    <div class="carrosCards">
-      <detailRental :cars="cars" />
+    <div class="leftCont">
+      <filtros :filters="filters" @update-filters="updateFilters" />
+    </div>
+    <div class="rightCont">
+      <carProfile v-if="carro" :carroinfo="carro" :num-reviews="reviews.length" @rentCarEvent="rentarCarro" />
+      <reviewsCont :num-reviews="reviews.length" :reviewsarray="reviews" />
+      <div class="carrosCards">
+        <detailRental :cars="filteredCars" @submitCar="updateCarro" />
+      </div>
     </div>
   </v-row>
 </template>
@@ -13,15 +18,17 @@ import Cookies from 'js-cookie'
 import carProfile from '@/components/carProfile.vue'
 import reviewsCont from '@/components/reviewsContainer.vue'
 import detailRental from '@/components/detailRental.vue'
+import filtros from '@/components/cars.vue'
 
 export default {
   name: 'DetailCarPage',
   components: {
     carProfile,
     reviewsCont,
-    detailRental
+    detailRental,
+    filtros
   },
-  layout: 'clienteLayout',
+  layout: 'detail',
   middleware: [
     'detect-push',
     'auth-role'
@@ -32,7 +39,44 @@ export default {
       carroID: '',
       reviews: [],
       cars: [],
-      dataResv: {}
+      dataResv: {},
+      filters: {
+        type: {
+          sport: true,
+          suv: true,
+          mpv: true,
+          sedan: true,
+          coupe: true,
+          hatchback: true
+        },
+        capacity: {
+          twoPerson: true,
+          fourPerson: true,
+          sixPerson: true,
+          eightPlus: true
+        },
+        price: 80
+      }
+    }
+  },
+  computed: {
+    filteredCars () {
+      return this.cars.filter((car) => {
+        const typeMatch = this.filters.type[car.categoria.toLowerCase()]
+        const capacityMatch =
+          this.filters.capacity[
+            car.pasajeros === 2
+              ? 'twoPerson'
+              : car.pasajeros === 4
+                ? 'fourPerson'
+                : car.pasajeros === 6
+                  ? 'sixPerson'
+                  : 'eightPlus'
+          ]
+        const priceMatch = car.precio <= this.filters.price
+
+        return typeMatch && capacityMatch && priceMatch
+      })
     }
   },
   mounted () {
@@ -128,13 +172,46 @@ export default {
           rating: this.carro.rating
         }
       })
+    },
+    updateCarro (carro) {
+      // eslint-disable-next-line no-console
+      console.log('escogi: ', carro.nombre)
+      // eslint-disable-next-line no-console
+      console.log('carro escogido: ', carro)
+      this.carro = carro
+      this.carroID = carro.id
+      this.dataResv.id = carro.id
+
+      this.loadCarro()
+      this.loadReviews()
+    },
+    updateFilters (newFilters) {
+      this.filters = newFilters
     }
   }
 }
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  font-family: 'Plus Jakarta Sans';
+}
+
 .index-background {
   background-color: #f6f7f9;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  height: 106%;
+}
+.rightCont {
+  display: flex;
+  flex-direction: column;
+}
+.leftCont {
+  height: 100%;
 }
 </style>

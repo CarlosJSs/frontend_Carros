@@ -54,6 +54,7 @@ export default {}
   height: 7em;
   display: flex;
   align-items: center;
+  padding-bottom: 0;
 }
 
 .header-container {
@@ -62,7 +63,7 @@ export default {}
   align-items: center;
   width: 100%;
   height: 100%;
-  margin-bottom: 1em;
+  margin-bottom: 1.2em;
 }
 
 .logo {

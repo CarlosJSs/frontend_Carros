@@ -119,9 +119,9 @@ export default {
       default: () => ({})
     },
     numReviews: {
-      type: String,
+      type: Number,
       required: true,
-      default: '440'
+      default: 44
     },
     lovedCar: {
       type: Boolean,
@@ -167,6 +167,7 @@ export default {
   border-radius: 16px;
   padding: 2em 0;
   height: 510px;
+  width: 920px;
 }
 .imagesContainer {
   width: 50%;
