@@ -10,7 +10,7 @@ export default function ({ route, redirect }) {
 
   const roleRoutes = {
     admin: ['/admin', '/admin/addCar', '/admin/grafic'],
-    cliente: ['/cliente', '/cliente/billing', '/cliente/detail', '/cliente/detailCar', '/cliente/home']
+    cliente: ['/cliente', '/cliente/billing', '/cliente/detail', '/cliente/detailCar', '/cliente/misReservas', '/cliente/favoritos']
   }
 
   const allowedRoutes = roleRoutes[role] || []

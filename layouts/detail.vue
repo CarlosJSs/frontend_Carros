@@ -4,7 +4,7 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
       <div class="header-container">
         <!-- Logo -->
-        <div class="logo">
+        <div class="logo" @click="goToHome">
           <span>MORENT</span>
         </div>
 
@@ -17,17 +17,17 @@
 
         <!-- Iconos a la derecha -->
         <div class="header-icons">
-          <div class="icon">
+          <div class="icon" @click="goToFav">
             <i class="fas fa-heart" />
           </div>
-          <div class="icon">
+          <div class="icon" @click="goToResv">
             <i class="fas fa-bell" />
             <span class="notification-dot" /> <!-- Punto de notificación -->
           </div>
           <div class="icon">
             <i class="fas fa-cog" />
           </div>
-          <div class="icon user-avatar">
+          <div class="icon user-avatar" @click="goToLogOut">
             <i class="fas fa-user-circle" />
           </div>
         </div>
@@ -40,7 +40,22 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    goToFav () {
+      this.$router.push('/cliente/favoritos')
+    },
+    goToResv () {
+      this.$router.push('/cliente/misReservas')
+    },
+    goToHome () {
+      this.$router.push('/cliente')
+    },
+    goToLogOut () {
+      this.$router.push('/')
+    }
+  }
+}
 </script>
 
 <style scoped>
