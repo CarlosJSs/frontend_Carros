@@ -2,22 +2,30 @@
   <div class="container">
     <!-- Sidebar Filters -->
     <aside class="filters">
-      <h3>Type</h3>
+      <h3 class="titleFilter typeFilter">
+        Type
+      </h3>
       <label><input v-model="localFilters.type.sport" type="checkbox" @change="updateFilters"> Sport </label>
       <label><input v-model="localFilters.type.suv" type="checkbox" @change="updateFilters"> SUV </label>
       <label><input v-model="localFilters.type.mpv" type="checkbox" @change="updateFilters"> MPV </label>
       <label><input v-model="localFilters.type.sedan" type="checkbox" @change="updateFilters"> Sedan </label>
       <label><input v-model="localFilters.type.coupe" type="checkbox" @change="updateFilters"> Coupe </label>
       <label><input v-model="localFilters.type.hatchback" type="checkbox" @change="updateFilters"> Hatchback </label>
-      <h3>Capacity</h3>
+      <h3 class="titleFilter">
+        Capacity
+      </h3>
       <label><input v-model="localFilters.capacity.twoPerson" type="checkbox" @change="updateFilters"> 2 Person </label>
       <label><input v-model="localFilters.capacity.fourPerson" type="checkbox" @change="updateFilters"> 4 Person </label>
       <label><input v-model="localFilters.capacity.sixPerson" type="checkbox" @change="updateFilters"> 6 Person </label>
       <label><input v-model="localFilters.capacity.eightPlus" type="checkbox" @change="updateFilters"> 8 or More </label>
 
-      <h3>Price</h3>
+      <h3 class="titleFilter">
+        Price
+      </h3>
       <input v-model="localFilters.price" type="range" min="0" max="100000" @change="updateFilters">
-      <p>Max. ${{ localFilters.price }} </p>
+      <p class="priceText">
+        Max. ${{ localFilters.price }}
+      </p>
     </aside>
   </div>
 </template>
@@ -54,7 +62,9 @@ export default {
   height: 100%;
   padding-top: 0;
 }
-
+.typeFilter {
+  margin-top: 0 !important;
+}
 .filters {
   width: 360px;
   padding: 2em;
@@ -62,15 +72,32 @@ export default {
   border-right: 1px solid #ffffff;
   height: 100%;
 }
-.filters h3 {
-  margin-top: 0;
+.titleFilter {
+  color: #90a3bf;
+  text-transform: uppercase;
+  font-size: .8em;
+  font-weight: 500;
+  margin-bottom: 1em;
+  margin-top: 1.8em
 }
 .filters label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: .6em;
+  color: #596780;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.filters input {
+  margin-right: .8em;
 }
 .filters input[type="range"] {
   width: 100%;
+}
+.priceText {
+  margin-top: .4em;
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-left: 12px;
 }
 .car-cards {
   display: flex;

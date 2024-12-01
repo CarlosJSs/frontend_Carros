@@ -32,7 +32,10 @@ export default {
     detail
   },
   layout: 'detail',
-  middleware: 'detect-push',
+  middleware: [
+    'detect-push',
+    'auth-role'
+  ],
   data () {
     return {
       showLoginF: true,
@@ -148,7 +151,7 @@ export default {
 }
 
 .index-background {
-    background-color: rgb(234, 242, 255);
+    background-color: #f6f7f9;
     width: 100vw;
     height: 100%;
     display: flex;
@@ -164,6 +167,7 @@ export default {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 button {
@@ -197,7 +201,7 @@ button {
 }
 .ac{
   display: flex;
-  width: 980px;
+  width: 100%;
   gap: 15px;
   margin-top: 2em;
 }

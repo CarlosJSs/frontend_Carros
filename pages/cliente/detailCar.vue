@@ -5,7 +5,7 @@
     </div>
     <div class="rightCont">
       <carProfile v-if="carro" :carroinfo="carro" :num-reviews="reviews.length" @rentCarEvent="rentarCarro" />
-      <reviewsCont :num-reviews="reviews.length" :reviewsarray="reviews" />
+      <reviewsCont v-if="reviews.length > 0" :num-reviews="reviews.length" :reviewsarray="reviews" />
       <div class="carrosCards">
         <detailRental :cars="filteredCars" @submitCar="updateCarro" />
       </div>
@@ -55,7 +55,7 @@ export default {
           sixPerson: true,
           eightPlus: true
         },
-        price: 80
+        price: 1000
       }
     }
   },
@@ -65,15 +65,15 @@ export default {
         const typeMatch = this.filters.type[car.categoria.toLowerCase()]
         const capacityMatch =
           this.filters.capacity[
-            car.pasajeros === 2
+            parseInt(car.pasajeros) === 2
               ? 'twoPerson'
-              : car.pasajeros === 4
+              : parseInt(car.pasajeros) === 4
                 ? 'fourPerson'
-                : car.pasajeros === 6
+                : parseInt(car.pasajeros) === 6
                   ? 'sixPerson'
                   : 'eightPlus'
           ]
-        const priceMatch = car.precio <= this.filters.price
+        const priceMatch = parseInt(car.precio) <= this.filters.price
 
         return typeMatch && capacityMatch && priceMatch
       })
@@ -210,8 +210,11 @@ export default {
 .rightCont {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 80%;
 }
 .leftCont {
   height: 100%;
+  width: 20%;
 }
 </style>

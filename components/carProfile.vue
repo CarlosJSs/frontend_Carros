@@ -65,7 +65,7 @@
               <div class="carProp">
                 Steering
               </div>
-              <div class="infoProp">
+              <div class="infoProp infoTrans">
                 {{ carroinfo.transmision }}
               </div>
             </div>
@@ -167,7 +167,7 @@ export default {
   border-radius: 16px;
   padding: 2em 0;
   height: 510px;
-  width: 920px;
+  width: 1100px;
 }
 .imagesContainer {
   width: 50%;
@@ -216,7 +216,7 @@ export default {
   border-radius: 16px;
   background-color: #ffffff;
   margin-right: 1.6em;
-  height: 100%;
+  height: fit-content;
   overflow-y: hidden;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -252,6 +252,8 @@ export default {
   text-align: justify;
   color: #596780;
   margin-bottom: 0 !important;
+  max-height: 8em;
+  overflow-y: auto;
 }
 .rowInfo {
   display: flex;
@@ -263,10 +265,10 @@ export default {
   margin-top: 1.2em;
 }
 .leftInfo {
-  width: 42%;
+  width: 54%;
 }
 .rightInfo {
-  width: 42%;
+  width: 36%;
 }
 .carProp {
   color: #90a3bf;
@@ -277,6 +279,10 @@ export default {
   color: #596780;
   font-size: 1em;
   font-weight: 500;
+  text-align: end;
+}
+.infoTrans {
+  font-size: .8em;
 }
 .carPrice {
   display: flex;
@@ -310,7 +316,7 @@ export default {
   background-color: #2929da;
 }
 .btnPrice {
-  margin-top: 2.6em;
+  margin-top: 1.6em;
   margin-bottom: 2em;
 }
 

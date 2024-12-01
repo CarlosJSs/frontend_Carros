@@ -60,6 +60,27 @@ export default {
           buttonText: 'Rental Car',
           image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
           alt: 'Car Image 2'
+        },
+        {
+          title: 'Easy way to rent a car at a low price',
+          description: 'Providing cheap car rental services and safe and comfortable facilities.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 2'
+        },
+        {
+          title: 'The Best Platform for Car Rental',
+          description: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 1'
+        },
+        {
+          title: 'Easy way to rent a car at a low price',
+          description: 'Providing cheap car rental services and safe and comfortable facilities.',
+          buttonText: 'Rental Car',
+          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          alt: 'Car Image 2'
         }
       ]
     }
