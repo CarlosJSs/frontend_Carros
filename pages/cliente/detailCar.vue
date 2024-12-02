@@ -105,16 +105,16 @@ export default {
       this.loadCarro()
       setTimeout(() => {
         this.loadClientes()
-      }, 400)
+      }, 600)
       setTimeout(() => {
         this.loadReviews()
-      }, 800)
+      }, 1200)
       setTimeout(() => {
         this.loadCarros()
-      }, 1000)
+      }, 1800)
       setTimeout(() => {
         this.loadFavs()
-      }, 1200)
+      }, 2400)
     } else {
       // eslint-disable-next-line no-console
       console.error('No se recibio un ID de carro')
@@ -176,7 +176,7 @@ export default {
         // eslint-disable-next-line no-console
         console.log('@@@ res => ', res.data)
         if (res.data.success && Array.isArray(res.data.cars)) {
-          this.cars = res.data.cars
+          this.cars = res.data.cars.filter(car => car.istaken === 'false')
         } else {
           // eslint-disable-next-line no-console
           console.error('No es array valido')

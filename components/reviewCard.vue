@@ -49,7 +49,7 @@ export default {
     imgUser: {
       type: String,
       required: true,
-      default: () => require('@/assets/usuario1.jpg')
+      default: () => require('@/assets/usuario1.png')
     }
   },
   data () {

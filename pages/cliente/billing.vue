@@ -89,8 +89,7 @@ export default {
       const body = {
         ...bodyResv,
         idcar: this.carro.id,
-        costo: parseFloat(this.carro.precio) + parseFloat(this.carro.precio / 100 * 16),
-        istaken: 'true'
+        costo: parseFloat(this.carro.precio) + parseFloat(this.carro.precio / 100 * 16)
       }
 
       await this.$axios.post('/reserva/create', body, {
@@ -102,9 +101,34 @@ export default {
         // eslint-disable-next-line no-console
         console.log('@@ res addResv => ', res)
         if (res && res.data && res.data.success) {
+          this.takeCar(this.carro.id)
           // eslint-disable-next-line no-console
           console.log('@@ res data => ', res.data)
           this.successDialog = true
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@ error => ', error)
+      })
+    },
+    takeCar (id) {
+      this.token = Cookies.get('token')
+
+      const body = {
+        istaken: true
+      }
+
+      this.$axios.put(`/cars/update/${id}`, body, {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-type': 'application/json'
+        }
+      }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('@@ res addResv => ', res)
+        if (res && res.data && res.data.success) {
+          // eslint-disable-next-line no-console
+          console.log('@@ res taken => ', res.data)
         }
       }).catch((error) => {
         // eslint-disable-next-line no-console

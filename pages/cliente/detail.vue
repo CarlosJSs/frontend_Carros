@@ -108,7 +108,7 @@ export default {
         // eslint-disable-next-line no-console
         console.log('@@@ res => ', res.data)
         if (res.data.success && Array.isArray(res.data.cars)) {
-          this.cars = res.data.cars
+          this.cars = res.data.cars.filter(car => car.istaken === 'false')
         } else {
           // eslint-disable-next-line no-console
           console.error('No es array valido')
