@@ -10,25 +10,18 @@
         </div>
       </div>
       <div class="mainSection">
-        <div class="reviewItem">
-          <reviewCard />
-        </div>
-        <div class="reviewItem">
-          <reviewCard
-            :desc-review="'We are greatly helped by the services of the MORENT Application. Morent has low prices and also a wide variety of cars with good and comfortable facilities. In addition, the service provided by the officers is also very friendly and very polite.'"
-            :date-rev="'20 July 2022'"
-            :num-stars="3"
-            :user-name="'Skylar Dias'"
-            :work-user="'CEO at Amazon'"
-            :img-user="require('@/assets/usuario2.jpg')"
-          />
+        <div v-for="(rev, index) in visibleReviews" :key="index" class="reviewItem">
+          <reviewCard :reviewinfo="rev" />
         </div>
       </div>
-      <div class="footerSection">
+      <div class="footerSection" @click="toggleShowAll">
         <div class="showAll">
-          Show All
+          {{ showAll ? 'Show Less' : 'Show All' }}
         </div>
-        <span class="downRow">
+        <span v-if="showAll" class="downRow">
+          ↑
+        </span>
+        <span v-else class="downRow">
           ↓
         </span>
       </div>
@@ -48,6 +41,26 @@ export default {
       type: Number,
       required: true,
       default: 13
+    },
+    reviewsarray: {
+      type: Array,
+      required: true,
+      default: () => ([])
+    }
+  },
+  data () {
+    return {
+      showAll: false
+    }
+  },
+  computed: {
+    visibleReviews () {
+      return this.showAll ? this.reviewsarray : this.reviewsarray.slice(0, 2)
+    }
+  },
+  methods: {
+    toggleShowAll () {
+      this.showAll = !this.showAll
     }
   }
 }
@@ -56,7 +69,6 @@ export default {
 <style>
 .reviewsContainer {
   background-color: #ffffff;
-  width: 70vw;
   border-radius: 16px;
   padding: 1.6em 1.4em;
   font-family: 'Plus Jakarta Sans';
@@ -65,6 +77,8 @@ export default {
   justify-content: center;
   align-items: center;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+  max-width: 1050px;
+  margin-top: 2em;
 }
 .headSection {
   display: flex;

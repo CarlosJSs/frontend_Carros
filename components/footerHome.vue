@@ -55,7 +55,7 @@ export default {}
 <style scoped>
 .footer {
   background-color: #fff;
-  padding: 40px 20px;
+  padding: 40px;
   font-family: Arial, sans-serif;
   color: #333;
   border-top: 1px solid #e5e5e5;
@@ -65,7 +65,7 @@ export default {}
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 30px;
 }
 
 .footer-section {
@@ -86,8 +86,10 @@ export default {}
 
 .footer-links {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  justify-content: space-between;
+  flex-grow: 1;
+  max-width: 600px;
+  justify-content: space-between;
 }
 
 .footer-column {
@@ -118,7 +120,7 @@ export default {}
 }
 
 .footer-column a:hover {
-  color: #7a7a7a;
+  color: #1976d2;
 }
 
 .footer-bottom {
@@ -129,8 +131,6 @@ export default {}
   border-top: 1px solid #e5e5e5;
   font-size: 14px;
   color: #7a7a7a;
-  flex-wrap: wrap;
-  gap: 10px;
 }
 
 .footer-policy a {

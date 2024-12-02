@@ -2,164 +2,133 @@
   <div class="container">
     <!-- Sidebar Filters -->
     <aside class="filters">
-      <h3>Type</h3>
-      <label><input type="checkbox" v-model="filters.type.sport"> Sport (10)</label>
-      <label><input type="checkbox" v-model="filters.type.suv"> SUV (12)</label>
-      <label><input type="checkbox" v-model="filters.type.mpv"> MPV (6)</label>
-      <label><input type="checkbox" v-model="filters.type.sedan"> Sedan (20)</label>
-      <label><input type="checkbox" v-model="filters.type.coupe"> Coupe (14)</label>
-      <label><input type="checkbox" v-model="filters.type.hatchback"> Hatchback (14)</label>
-      <h3>Capacity</h3>
-      <label><input type="checkbox" v-model="filters.capacity.twoPerson"> 2 Person (10)</label>
-      <label><input type="checkbox" v-model="filters.capacity.fourPerson"> 4 Person (14)</label>
-      <label><input type="checkbox" v-model="filters.capacity.sixPerson"> 6 Person (12)</label>
-      <label><input type="checkbox" v-model="filters.capacity.eightPlus"> 8 or More (16)</label>
+      <h3 class="titleFilter typeFilter">
+        Type
+      </h3>
+      <label><input v-model="localFilters.type.sport" type="checkbox" @change="updateFilters"> Sport </label>
+      <label><input v-model="localFilters.type.suv" type="checkbox" @change="updateFilters"> SUV </label>
+      <label><input v-model="localFilters.type.mpv" type="checkbox" @change="updateFilters"> MPV </label>
+      <label><input v-model="localFilters.type.sedan" type="checkbox" @change="updateFilters"> Sedan </label>
+      <label><input v-model="localFilters.type.coupe" type="checkbox" @change="updateFilters"> Coupe </label>
+      <label><input v-model="localFilters.type.hatchback" type="checkbox" @change="updateFilters"> Hatchback </label>
+      <h3 class="titleFilter">
+        Capacity
+      </h3>
+      <label><input v-model="localFilters.capacity.twoPerson" type="checkbox" @change="updateFilters"> 2 Person </label>
+      <label><input v-model="localFilters.capacity.fourPerson" type="checkbox" @change="updateFilters"> 4 Person </label>
+      <label><input v-model="localFilters.capacity.sixPerson" type="checkbox" @change="updateFilters"> 6 Person </label>
+      <label><input v-model="localFilters.capacity.eightPlus" type="checkbox" @change="updateFilters"> 8 or More </label>
 
-      <h3>Price</h3>
-      <input type="range" v-model="filters.price" min="0" max="100">
-      <p>Max. ${{ filters.price }}.00</p>
+      <h3 class="titleFilter">
+        Price
+      </h3>
+      <input v-model="localFilters.price" type="range" min="0" max="100000" @change="updateFilters">
+      <p class="priceText">
+        Max. ${{ localFilters.price }}
+      </p>
     </aside>
-
-    <!-- Car Cards Section -->
-    <section class="car-cards">
-      <div class="car-card" v-for="(car, index) in filteredCars" :key="index">
-        <h4>{{ car.name }}</h4>
-        <p>{{ car.type }}</p>
-        <img :src="car.image" alt="Car Image">
-        <p>${{ car.price }} / day</p>
-        <button @click="rentCar(car)">
-          Rent Now
-        </button>
-      </div>
-    </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CarRental',
+  name: 'FiltrosS',
+  props: {
+    // eslint-disable-next-line vue/require-default-prop
+    filters: Object
+  },
   data () {
     return {
-      filters: {
-        type: {
-          sport: true,
-          suv: true,
-          mpv: true,
-          sedan: true,
-          coupe: true,
-          hatchback: true
-        },
-        capacity: {
-          twoPerson: true,
-          fourPerson: true,
-          sixPerson: true,
-          eightPlus: true
-        },
-        price: 50
-      },
-      cars: [
-        {
-          name: 'Koenigsegg',
-          type: 'Sport',
-          image: 'car1.png',
-          price: 99
-        },
-        {
-          name: 'Nissan GT - R',
-          type: 'Sport',
-          image: 'car2.png',
-          price: 80
-        },
-        {
-          name: 'BMW X5',
-          type: 'SUV',
-          image: 'car3.png',
-          price: 120
-        },
-        {
-          name: 'Audi A4',
-          type: 'Sedan',
-          image: 'car4.png',
-          price: 60
-        }
-        // Add more cars here
-      ]
-    }
-  },
-  computed: {
-    filteredCars () {
-      return this.cars.filter((car) => {
-        const typeMatch = this.filters.type[car.type.toLowerCase()]
-        const capacityMatch = this.filters.capacity[`${car.capacity}Person`]
-        const priceMatch = car.price <= this.filters.price
-        return typeMatch && capacityMatch && priceMatch
-      })
+      localFilters: {
+        ...this.filters
+      }
     }
   },
   methods: {
-    rentCar (car) {
-      console.log(`Renting the car: ${car.name}`)
+    updateFilters () {
+      this.$emit('update-filters', this.localFilters)
     }
   }
 }
 </script>
 
-  <style scoped>
-  .container {
+<style scoped>
+.container {
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
   box-sizing: border-box;
+  height: 100%;
+  padding-top: 0;
 }
-
-  .filters {
-    width: 250px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-right: 1px solid #ddd;
-  }
-  .filters h3 {
-    margin-top: 0;
-  }
-  .filters label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  .filters input[type="range"] {
-    width: 100%;
-  }
-  .car-cards {
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-  }
-  .car-card {
-    width: 250px;
-    margin: 10px;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  .car-card img {
-    width: 100%;
-    height: auto;
-  }
-  .car-card button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    margin-top: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  .car-card button:hover {
-    background-color: #0056b3;
-  }
-  </style>
+.typeFilter {
+  margin-top: 0 !important;
+}
+.filters {
+  width: 360px;
+  padding: 2em;
+  background-color: hsl(0, 0%, 100%);
+  border-right: 1px solid #ffffff;
+  height: 100%;
+}
+.titleFilter {
+  color: #90a3bf;
+  text-transform: uppercase;
+  font-size: .8em;
+  font-weight: 500;
+  margin-bottom: 1em;
+  margin-top: 1.8em
+}
+.filters label {
+  display: block;
+  margin-bottom: .6em;
+  color: #596780;
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.filters input {
+  margin-right: .8em;
+}
+.filters input[type="range"] {
+  width: 100%;
+}
+.priceText {
+  margin-top: .4em;
+  font-size: 1.2em;
+  font-weight: 500;
+  margin-left: 12px;
+}
+.car-cards {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: flex-start;
+}
+.car-card {
+  width: 250px;
+  margin: 10px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.car-card img {
+  width: 100%;
+  height: auto;
+}
+.car-card button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.car-card button:hover {
+  background-color: #0056b3;
+}
+</style>

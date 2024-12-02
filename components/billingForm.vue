@@ -19,13 +19,13 @@
           <div class="labelInput">
             Name
           </div>
-          <input type="text" placeholder="Your name" class="inputInfo">
+          <input v-model="billingInfo.nombre" type="text" placeholder="Your name" class="inputInfo">
         </div>
         <div class="labelAndInput">
           <div class="labelInput">
             Phone Number
           </div>
-          <input type="tel" placeholder="Phone number" class="inputInfo">
+          <input v-model="billingInfo.telefono" type="tel" placeholder="Phone number" class="inputInfo">
         </div>
       </div>
       <div class="rowInputs">
@@ -33,13 +33,13 @@
           <div class="labelInput">
             Address
           </div>
-          <input type="text" placeholder="Address" class="inputInfo">
+          <input v-model="billingInfo.direccion" type="text" placeholder="Address" class="inputInfo">
         </div>
         <div class="labelAndInput">
           <div class="labelInput">
             Town / City
           </div>
-          <input type="text" placeholder="Town or city" class="inputInfo">
+          <input v-model="billingInfo.ciudad" type="text" placeholder="Town or city" class="inputInfo">
         </div>
       </div>
     </div>
@@ -67,18 +67,12 @@
           <div class="labelInput">
             Locations
           </div>
-          <select name="" class="inputInfo">
+          <select v-model="rentalInfo.ciudadInicio" name="" class="inputInfo">
             <option value="" disabled selected>
               Select your city
             </option>
-            <option value="">
-              Irapuato
-            </option>
-            <option value="">
-              Guanajuato
-            </option>
-            <option value="">
-              Leon
+            <option v-for="city in cities" :key="city">
+              {{ city }}
             </option>
           </select>
         </div>
@@ -86,7 +80,7 @@
           <div class="labelInput">
             Date
           </div>
-          <input type="date" class="inputInfo inputDT">
+          <input v-model="rentalInfo.fechaInicio" type="date" class="inputInfo inputDT">
         </div>
       </div>
       <div class="rowInputs">
@@ -94,7 +88,7 @@
           <div class="labelInput">
             Time
           </div>
-          <input type="time" class="inputInfo inputDT">
+          <input v-model="rentalInfo.horaInicio" type="time" class="inputInfo inputDT">
         </div>
       </div>
       <div class="rowPickOff">
@@ -107,18 +101,12 @@
           <div class="labelInput">
             Locations
           </div>
-          <select name="" class="inputInfo">
+          <select v-model="rentalInfo.ciudadFin" name="" class="inputInfo">
             <option value="" disabled selected>
               Select your city
             </option>
-            <option value="">
-              Irapuato
-            </option>
-            <option value="">
-              Guanajuato
-            </option>
-            <option value="">
-              Leon
+            <option v-for="city in cities" :key="city">
+              {{ city }}
             </option>
           </select>
         </div>
@@ -126,7 +114,7 @@
           <div class="labelInput">
             Date
           </div>
-          <input type="date" class="inputInfo inputDT">
+          <input v-model="rentalInfo.fechaFin" type="date" class="inputInfo inputDT">
         </div>
       </div>
       <div class="rowInputs">
@@ -134,7 +122,7 @@
           <div class="labelInput">
             Time
           </div>
-          <input type="time" class="inputInfo inputDT">
+          <input v-model="rentalInfo.horaFin" type="time" class="inputInfo inputDT">
         </div>
       </div>
     </div>
@@ -169,13 +157,19 @@
             <div class="labelInput">
               Card Number
             </div>
-            <input type="text" placeholder="Card number" class="inputInfo inputInfoCC">
+            <input v-model="paymentInfo.cardN" type="text" placeholder="Card number" class="inputInfo inputInfoCC" @input="validateCardNumber">
+            <p v-if="errors.cardN" class="errorMessage">
+              {{ errors.cardN }}
+            </p>
           </div>
           <div class="labelAndInput">
             <div class="labelInput">
               Expiration Date
             </div>
-            <input type="text" placeholder="DD / MM / YY" class="inputInfo inputInfoCC">
+            <input v-model="paymentInfo.expDate" type="text" placeholder="MM / YY" class="inputInfo inputInfoCC" @input="validateExpDate">
+            <p v-if="errors.expDate" class="errorMessage">
+              {{ errors.expDate }}
+            </p>
           </div>
         </div>
         <div class="rowInputs">
@@ -183,13 +177,16 @@
             <div class="labelInput">
               Card Holder
             </div>
-            <input type="text" placeholder="Card holder" class="inputInfo inputInfoCC">
+            <input v-model="paymentInfo.owner" type="text" placeholder="Card holder" class="inputInfo inputInfoCC">
           </div>
           <div class="labelAndInput">
             <div class="labelInput">
               CVC
             </div>
-            <input type="text" placeholder="CVC" class="inputInfo inputInfoCC">
+            <input v-model="paymentInfo.cvc" type="text" placeholder="CVC" class="inputInfo inputInfoCC" @input="validateCVC">
+            <p v-if="errors.cvc" class="errorMessage">
+              {{ errors.cvc }}
+            </p>
           </div>
         </div>
       </div>
@@ -251,7 +248,7 @@
         </v-container>
       </div>
       <div class="rowBtnRN">
-        <button class="btnRentNow">
+        <button class="btnRentNow" @click="submitResv">
           Rent Now
         </button>
       </div>
@@ -269,6 +266,153 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
+export default {
+  props: {
+    inforenta: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    }
+  },
+  data () {
+    return {
+      userID: Cookies.get('userID'),
+      billingInfo: {
+        nombre: '',
+        telefono: '',
+        direccion: '',
+        ciudad: ''
+      },
+      rentalInfo: {
+        ciudadInicio: '',
+        fechaInicio: '',
+        horaInicio: '',
+        ciudadFin: '',
+        fechaFin: '',
+        horaFin: ''
+      },
+      paymentInfo: {
+        cardN: '',
+        expDate: '',
+        owner: '',
+        cvc: ''
+      },
+      SPAMisChecked: false,
+      TCPPisChecked: false,
+      cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Irapuato', 'Guanajuato', 'Leon'],
+      errors: {
+        cardN: '',
+        expDate: '',
+        cvc: ''
+      }
+    }
+  },
+  watch: {
+    inforenta: {
+      deep: true,
+      inmediate: true,
+      handler (newInfo) {
+        this.rentalInfo = {
+          ...newInfo
+        }
+      }
+    }
+  },
+  methods: {
+    submitResv () {
+      if (this.billingInfo.nombre && this.billingInfo.telefono && this.billingInfo.ciudad && this.billingInfo.direccion &&
+      this.rentalInfo.ciudadFin && this.rentalInfo.ciudadInicio && this.rentalInfo.fechaFin && this.rentalInfo.fechaInicio && this.rentalInfo.horaFin && this.rentalInfo.horaInicio &&
+      this.paymentInfo.cardN && this.paymentInfo.cvc && this.paymentInfo.expDate && this.paymentInfo.owner) {
+        if (this.SPAMisChecked && this.TCPPisChecked) {
+          if (this.validatePaymentInfo()) {
+            const bodyResv = {
+              fechainicio: this.rentalInfo.fechaInicio,
+              ciudadinicio: this.rentalInfo.ciudadInicio,
+              fechafin: this.rentalInfo.fechaFin,
+              ciudadfin: this.rentalInfo.ciudadFin,
+              idusuario: this.userID,
+              nombre: this.billingInfo.nombre,
+              telefono: this.billingInfo.telefono,
+              direccion: this.billingInfo.direccion,
+              ciudad: this.billingInfo.ciudad
+            }
+
+            this.$emit('createResvEvent', {
+              ...bodyResv
+            })
+
+            this.billingInfo.nombre = ''
+            this.billingInfo.telefono = ''
+            this.billingInfo.ciudad = ''
+            this.billingInfo.direccion = ''
+            this.rentalInfo.ciudadFin = ''
+            this.rentalInfo.ciudadInicio = ''
+            this.rentalInfo.fechaFin = ''
+            this.rentalInfo.fechaInicio = ''
+            this.rentalInfo.horaFin = ''
+            this.rentalInfo.horaInicio = ''
+            this.paymentInfo.cardN = ''
+            this.paymentInfo.cvc = ''
+            this.paymentInfo.expDate = ''
+            this.paymentInfo.owner = ''
+          } else {
+            // eslint-disable-next-line no-console
+            console.log('no entre a los pagos')
+            alert('Errores en los datos de pago.')
+          }
+        } else {
+          // eslint-disable-next-line no-console
+          console.log('no entre a los checked')
+          alert('Es obligatorio aceptar el SPAM y Terminos y Condiciones :)')
+        }
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('no entre')
+        alert('Todos los campos son requeridos')
+      }
+    },
+    validateCardNumber () {
+      const cardRegex = /^[0-9]{16}$/
+      if (!cardRegex.test(this.paymentInfo.cardN)) {
+        this.errors.cardN = 'El número de tarjeta debe tener 16 dígitos.'
+      } else {
+        this.errors.cardN = ''
+      }
+    },
+    validateCVC () {
+      const cvcRegex = /^[0-9]{3}$/
+      if (!cvcRegex.test(this.paymentInfo.cvc)) {
+        this.errors.cvc = 'El CVC debe tener 3 dígitos.'
+      } else {
+        this.errors.cvc = ''
+      }
+    },
+    validateExpDate () {
+      const expDateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/
+      if (!expDateRegex.test(this.paymentInfo.expDate)) {
+        this.errors.expDate = 'La fecha debe estar en formato MM/YY.'
+      } else {
+        const [month, year] = this.paymentInfo.expDate.split('/').map(Number)
+        const currentYear = new Date().getFullYear() % 100
+        const currentMonth = new Date().getMonth() + 1
+
+        if (year < currentYear || (year === currentYear && month < currentMonth)) {
+          this.errors.expDate = 'La fecha de expiración no puede estar en el pasado.'
+        } else {
+          this.errors.expDate = ''
+        }
+      }
+    },
+    validatePaymentInfo () {
+      this.validateCardNumber()
+      this.validateCVC()
+      this.validateExpDate()
+      return !this.errors.cardN && !this.errors.cvc && !this.errors.expDate
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -518,6 +662,11 @@ select option:disabled {
   width: 1.4em;
   height: 1.4em;
   color: white;
+}
+.errorMessage {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
 }
 
 @keyframes pulse {

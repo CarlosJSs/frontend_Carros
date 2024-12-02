@@ -8,11 +8,11 @@
     </div>
     <div class="rowCardSM rowImgTitle">
       <div class="imgCarSM">
-        <img :src="carIMG" class="imageCarSM">
+        <img :src="getCarImage(carro.id)" class="imageCarSM" @error="setDefaultImage">
       </div>
       <div class="infoCarSM">
         <div class="titleCarSM">
-          {{ carName }}
+          {{ carro.nombre }}
         </div>
         <div class="revCarSM">
           <div class="ratinStars">
@@ -37,7 +37,7 @@
         Subtotal
       </div>
       <div class="subTnum">
-        ${{ subTotal }}
+        ${{ carro.precio }}
       </div>
     </div>
     <div class="rowCardSM rowTax">
@@ -45,7 +45,7 @@
         Tax
       </div>
       <div class="taxNum">
-        ${{ taxes }}
+        ${{ parseFloat(carro.precio / 100 * 16) }}
       </div>
     </div>
     <div class="rowCardSM rowInputPCode">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="rentalPriceNum">
-        ${{ total }}
+        ${{ parseFloat(carro.precio) + parseFloat(carro.precio / 100 * 16) }}
       </div>
     </div>
   </div>
@@ -73,48 +73,43 @@
 <script>
 export default {
   props: {
-    carName: {
-      type: String,
+    carro: {
+      type: Object,
       required: true,
-      default: 'Nissan GT-R'
+      default: () => ({})
     },
     carIMG: {
       type: String,
       required: true,
       default: () => require('@/assets/cardSummaryExample.png')
     },
-    numStars: {
-      type: Number,
-      required: true,
-      default: 4
-    },
     numReviewers: {
       type: Number,
       required: true,
       default: 440
-    },
-    subTotal: {
-      type: Number,
-      required: true,
-      default: 80.01
-    },
-    taxes: {
-      type: Number,
-      required: true,
-      default: 0
-    },
-    total: {
-      type: Number,
-      required: true,
-      default: 80.01
     }
   },
   computed: {
     estrellas () {
-      return Array(this.numStars).fill(null)
+      const rating = parseInt(this.carro.rating) || 0
+      return Array(Math.min(Math.max(rating, 0), 5)).fill(null)
     },
     estrellasWhite () {
-      return Array(5 - this.numStars).fill(null)
+      const rating = parseInt(this.carro.rating) || 0
+      return Array(5 - Math.min(Math.max(rating, 0), 5)).fill(null)
+    }
+  },
+  methods: {
+    getCarImage (id) {
+      try {
+        return require(`@/assets/cars/${id}.png`)
+      } catch (error) {
+        // Si no se encuentra, devolver una imagen por defecto.
+        return require('@/assets/c1.png')
+      }
+    },
+    setDefaultImage (event) {
+      event.target.src = require('@/assets/c1.png')
     }
   }
 }

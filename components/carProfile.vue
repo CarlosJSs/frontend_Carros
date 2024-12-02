@@ -7,7 +7,7 @@
         </div>
         <div class="smallImages">
           <div class="descImage">
-            <img src="./../assets/imgExample2.png" alt="img2" class="imgSmall">
+            <img :src="getCarImage(carroinfo.id)" alt="img2" class="imgSmall" @error="setDefaultImage">
           </div>
           <div class="descImage">
             <img src="./../assets/imgExample3.png" alt="img3" class="imgSmall">
@@ -21,7 +21,7 @@
         <div class="rowCard">
           <div class="carTitleDesc">
             <div class="carTitle">
-              {{ carName }}
+              {{ carroinfo.nombre }}
             </div>
             <div class="carReview">
               <div class="carStars">
@@ -48,7 +48,7 @@
         </div>
         <div class="rowCard">
           <p class="carDesc">
-            {{ carDescrip }}
+            {{ carroinfo.descripcion }}
           </p>
         </div>
         <div class="rowCard rowProps">
@@ -58,15 +58,15 @@
                 TypeCar
               </div>
               <div class="infoProp">
-                {{ typeCar }}
+                {{ carroinfo.categoria }}
               </div>
             </div>
             <div class="rowInfo secondRinf">
               <div class="carProp">
                 Steering
               </div>
-              <div class="infoProp">
-                {{ steeringCar }}
+              <div class="infoProp infoTrans">
+                {{ carroinfo.transmision }}
               </div>
             </div>
           </div>
@@ -76,7 +76,7 @@
                 Capacity
               </div>
               <div class="infoProp">
-                {{ capacityCar }}
+                {{ carroinfo.pasajeros }}
               </div>
             </div>
             <div class="rowInfo secondRinf">
@@ -84,7 +84,7 @@
                 Gasoline
               </div>
               <div class="infoProp">
-                {{ gasonileCar }}
+                {{ carroinfo.capacidad_tanque }}
               </div>
             </div>
           </div>
@@ -92,16 +92,16 @@
         <div class="rowCard btnPrice">
           <div class="carPrice">
             <div class="actualPrice">
-              ${{ actualPrice }}/
+              ${{ carroinfo.precio }}/
               <span class="priceTime">
                 days
               </span>
             </div>
             <div class="prevPrice">
-              ${{ prevPrice }}
+              ${{ carroinfo.precio + 24 }}
             </div>
           </div>
-          <div class="btnRent">
+          <div class="btnRent" @click="rentCar(carroinfo.id)">
             Rent Now
           </div>
         </div>
@@ -113,60 +113,20 @@
 <script>
 export default {
   props: {
-    carName: {
-      type: String,
+    carroinfo: {
+      type: Object,
       required: true,
-      default: 'Nissan GT-R'
-    },
-    carDescrip: {
-      type: String,
-      required: true,
-      default: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, quasi modi, reiciendis quidem sapiente quam laboriosam voluptatibus quod qui accusamus sint nemo esse consectetur voluptate, ullam nam! Tempore, ullam in.'
-    },
-    typeCar: {
-      type: String,
-      required: true,
-      default: 'Sport'
-    },
-    steeringCar: {
-      type: String,
-      required: true,
-      default: 'Manual'
-    },
-    capacityCar: {
-      type: String,
-      required: true,
-      default: '2 Person'
-    },
-    gasonileCar: {
-      type: String,
-      required: true,
-      default: '70L'
-    },
-    actualPrice: {
-      type: String,
-      required: true,
-      default: '80.00'
-    },
-    prevPrice: {
-      type: String,
-      required: true,
-      default: '100.00'
+      default: () => ({})
     },
     numReviews: {
-      type: String,
-      required: true,
-      default: '440'
-    },
-    numStars: {
       type: Number,
       required: true,
-      default: 4
+      default: 44
     },
     lovedCar: {
       type: Boolean,
       required: true,
-      default: true
+      default: false
     }
   },
   data () {
@@ -176,10 +136,30 @@ export default {
   },
   computed: {
     estrellas () {
-      return Array(this.numStars).fill(null)
+      const rating = parseInt(this.carroinfo.rating) || 0
+      return Array(Math.min(Math.max(rating, 0), 5)).fill(null)
     },
     estrellasWhite () {
-      return Array(5 - this.numStars).fill(null)
+      const rating = parseInt(this.carroinfo.rating) || 0
+      return Array(5 - Math.min(Math.max(rating, 0), 5)).fill(null)
+    }
+  },
+  methods: {
+    rentCar (id) {
+      this.$emit('rentCarEvent', {
+        id
+      })
+    },
+    getCarImage (id) {
+      try {
+        return require(`@/assets/cars/${id}.png`)
+      } catch (error) {
+        // Si no se encuentra, devolver una imagen por defecto.
+        return require('@/assets/c1.png')
+      }
+    },
+    setDefaultImage (event) {
+      event.target.src = require('@/assets/c1.png')
     }
   }
 }
@@ -195,10 +175,10 @@ export default {
   align-items: center;
   font-family: 'Plus Jakarta Sans';
   background-color: #f6f7f9;
-  width: 76vw;
   border-radius: 16px;
-  padding: 2em 1em;
+  padding: 2em 0;
   height: 510px;
+  width: 1100px;
 }
 .imagesContainer {
   width: 50%;
@@ -247,7 +227,7 @@ export default {
   border-radius: 16px;
   background-color: #ffffff;
   margin-right: 1.6em;
-  height: 100%;
+  height: fit-content;
   overflow-y: hidden;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -283,6 +263,8 @@ export default {
   text-align: justify;
   color: #596780;
   margin-bottom: 0 !important;
+  max-height: 8em;
+  overflow-y: auto;
 }
 .rowInfo {
   display: flex;
@@ -294,10 +276,10 @@ export default {
   margin-top: 1.2em;
 }
 .leftInfo {
-  width: 42%;
+  width: 54%;
 }
 .rightInfo {
-  width: 42%;
+  width: 36%;
 }
 .carProp {
   color: #90a3bf;
@@ -308,6 +290,10 @@ export default {
   color: #596780;
   font-size: 1em;
   font-weight: 500;
+  text-align: end;
+}
+.infoTrans {
+  font-size: .8em;
 }
 .carPrice {
   display: flex;
@@ -341,7 +327,7 @@ export default {
   background-color: #2929da;
 }
 .btnPrice {
-  margin-top: 2.6em;
+  margin-top: 1.6em;
   margin-bottom: 2em;
 }
 

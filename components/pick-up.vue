@@ -6,7 +6,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Locations</label>
-          <select v-model="pickupLocation">
+          <select v-model="dataResv.pickupLocation">
             <option disabled value="">
               Select your city
             </option>
@@ -17,11 +17,11 @@
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input v-model="pickupDate" type="date">
+          <input v-model="dataResv.pickupDate" type="date">
         </div>
         <div class="form-group">
           <label>Time</label>
-          <input v-model="pickupTime" type="time">
+          <input v-model="dataResv.pickupTime" type="time">
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Locations</label>
-          <select v-model="dropoffLocation">
+          <select v-model="dataResv.dropoffLocation" :disabled="!pickupComplete">
             <option disabled value="">
               Select your city
             </option>
@@ -50,11 +50,11 @@
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input v-model="dropoffDate" type="date">
+          <input v-model="dataResv.dropoffDate" type="date" :min="dropoffMinDate" :disabled="!pickupComplete">
         </div>
         <div class="form-group">
           <label>Time</label>
-          <input v-model="dropoffTime" type="time">
+          <input v-model="dataResv.dropoffTime" type="time" :disabled="!dataResv.dropoffDate">
         </div>
       </div>
     </div>
@@ -65,20 +65,52 @@
 export default {
   data () {
     return {
-      pickupLocation: '',
-      dropoffLocation: '',
-      pickupDate: '',
-      pickupTime: '',
-      dropoffDate: '',
-      dropoffTime: '',
-      cities: ['New York', 'Los Angeles', 'Chicago', 'Houston']
+      dataResv: {
+        pickupLocation: '',
+        dropoffLocation: '',
+        pickupDate: '',
+        pickupTime: '',
+        dropoffDate: '',
+        dropoffTime: ''
+      },
+      dropoffMinDate: '',
+      cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Irapuato', 'Guanajuato', 'Leon']
+    }
+  },
+  computed: {
+    pickupComplete () {
+      return (
+        this.dataResv.pickupLocation &&
+        this.dataResv.pickupDate &&
+        this.dataResv.pickupTime
+      )
+    }
+  },
+  watch: {
+    dataResv: {
+      deep: true,
+      handler (newValue) {
+        this.$emit('rentDataEvent', {
+          ...newValue
+        })
+      }
+    },
+    'dataResv.pickupDate' (newDate) {
+      this.updateDropoffMinDate(newDate)
     }
   },
   methods: {
     swapLocations () {
-      const temp = this.pickupLocation
-      this.pickupLocation = this.dropoffLocation
-      this.dropoffLocation = temp
+      const temp = this.dataResv.pickupLocation
+      this.dataResv.pickupLocation = this.dataResv.dropoffLocation
+      this.dataResv.dropoffLocation = temp
+    },
+    updateDropoffMinDate (pickupDate) {
+      this.dropoffMinDate = pickupDate
+      if (this.dataResv.dropoffDate < this.dropoffMinDate) {
+        this.dataResv.dropoffDate = ''
+        this.dataResv.dropoffTime = ''
+      }
     }
   }
 }
@@ -88,7 +120,6 @@ export default {
 .pickup-form {
   display: flex;
   align-items: center;
-  background-color: #f9fafc;
   border-radius: 10px;
   padding: 20px;
   justify-content: center;

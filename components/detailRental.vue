@@ -4,27 +4,31 @@
     <div class="cars-grid">
       <div v-for="(car, index) in cars" :key="index" class="car-card">
         <div class="card-header">
-          <h4>{{ car.name }}</h4>
-          <i class="fas fa-heart favorite-icon" />
+          <h4>{{ car.nombre }}</h4>
+          <i
+            :class="['fas', 'fa-heart', isFavorite(car.id) ? 'favorite-icon-red' : 'favorite-icon-white']"
+            class="favorite-icon"
+            @click="toggleFavorite(car)"
+          />
         </div>
         <p class="car-type">
-          {{ car.type }}
+          {{ car.categoria }}
         </p>
-        <img src="~/assets/c1.png" alt="Car Image" class="car-image">
+        <img :src="getCarImage(car.id)" alt="Car Image" class="car-image" @error="setDefaultImage">
         <div class="car-info">
           <span class="info-item">
-            <i class="fas fa-gas-pump" /> {{ car.fuel }}
+            <i class="fas fa-gas-pump" /> {{ car.capacidad_tanque }}
           </span>
           <span class="info-item">
-            <i class="fas fa-cogs" /> {{ car.transmission }}
+            <i class="fas fa-cogs" /> {{ car.transmision }}
           </span>
           <span class="info-item">
-            <i class="fas fa-user" /> {{ car.passengers }} People
+            <i class="fas fa-user" /> {{ car.pasajeros }} People
           </span>
         </div>
         <div class="car-footer">
           <p class="price">
-            ${{ car.price }}.00 / day
+            ${{ car.precio }} / day
           </p>
           <button @click="rentCar(car)">
             Rent Now
@@ -36,31 +40,70 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   props: {
     cars: {
       type: Array,
       required: true
+    },
+    favorites: {
+      type: Array,
+      default: () => []
+    }
+  },
+  data () {
+    return {
+      userID: Cookies.get('userID')
     }
   },
   methods: {
     rentCar (car) {
-      // eslint-disable-next-line no-console
-      console.log(`Alquilando el coche: ${car.name}`)
+      this.$emit('submitCar', {
+        ...car
+      })
+    },
+    getCarImage (id) {
+      try {
+        return require(`@/assets/cars/${id}.png`)
+      } catch (error) {
+        // Si no se encuentra, devolver una imagen por defecto.
+        return require('@/assets/c1.png')
+      }
+    },
+    setDefaultImage (event) {
+      event.target.src = require('@/assets/c1.png')
+    },
+    isFavorite (carId) {
+      return this.favorites.some(fav => fav.idcar === carId)
+    },
+    toggleFavorite (car) {
+      if (this.isFavorite(car.id)) {
+        const favorite = this.favorites.find(fav => fav.idcar === car.id)
+        this.$emit('removeFavorite', favorite.id)
+      } else {
+        this.$emit('addFavorite', {
+          idcar: car.id,
+          idusuario: this.userID
+        })
+      }
     }
   }
 }
 </script>
+
 <style scoped>
 .popular-cars {
   padding: 20px;
-  font-family: Arial, sans-serif;
+  margin-top: 2em;
 }
 .cars-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   justify-content: center;
+  margin-top: 1em;
 }
 .car-card {
   background-color: #f9f9f9;
@@ -128,5 +171,16 @@ button {
 }
 button:hover {
   background-color: #1259a1;
+}
+.favorite-icon-red {
+  color: red;
+}
+
+.favorite-icon-white {
+  color: rgb(225, 230, 233);
+}
+.favorite-icon {
+  cursor: pointer;
+  font-size: 1.5em;
 }
 </style>

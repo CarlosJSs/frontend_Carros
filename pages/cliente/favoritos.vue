@@ -1,25 +1,14 @@
 <template>
   <v-row justify="center" align="center" class="index-background">
     <div class="container">
-      <div class="hero-section">
-        <target />
-      </div>
-      <div>
-        <pickUp @rentDataEvent="setDataResv" />
-      </div>
       <div class="popular-section">
         <detailRental
-          :cars="cars"
+          :cars="favoriteCars"
           :favorites="favs"
           @submitCar="chooseCar"
           @addFavorite="addFavorite"
           @removeFavorite="removeFavorite"
         />
-      </div>
-      <div class="btnMore">
-        <button @click="goDetail">
-          Show more car
-        </button>
       </div>
     </div>
     <div class="footer">
@@ -31,16 +20,12 @@
 <script>
 import Cookies from 'js-cookie'
 import detailRental from '@/components/detailRental.vue'
-import target from '~/components/targetComponent.vue'
-import pickUp from '@/components/pick-up.vue'
 import footerq from '~/components/footerHome.vue'
 
 export default {
   name: 'HomePage',
   components: {
     detailRental,
-    target,
-    pickUp,
     footerq
   },
   layout: 'detail',
@@ -57,7 +42,16 @@ export default {
       horaInicio: '',
       horaFin: '',
       ciudadInicio: '',
-      ciudadFin: ''
+      ciudadFin: '',
+      userID: Cookies.get('userID')
+    }
+  },
+  computed: {
+    favoriteCars () {
+      const userFavorites = this.favs.filter(fav => fav.idusuario === this.userID)
+      return this.cars.filter(car =>
+        userFavorites.some(fav => fav.idcar === car.id)
+      )
     }
   },
   mounted () {
@@ -76,10 +70,31 @@ export default {
         // eslint-disable-next-line no-console
         console.log('@@@ res => ', res.data)
         if (res.data.success && Array.isArray(res.data.cars)) {
-          this.cars = res.data.cars.filter(car => car.istaken === 'false')
+          this.cars = res.data.cars
         } else {
           // eslint-disable-next-line no-console
           console.error('No es array valido')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
+    },
+    loadFavs () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/favorites', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('@@@ resFav => ', res.data)
+        if (res.data.success && Array.isArray(res.data.favorites)) {
+          this.favs = res.data.favorites
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido en favs')
         }
       }).catch((error) => {
         // eslint-disable-next-line no-console
@@ -111,30 +126,6 @@ export default {
       this.horaFin = data.dropoffTime
       this.ciudadInicio = data.pickupLocation
       this.ciudadFin = data.dropoffLocation
-    },
-    goDetail () {
-      this.$router.push('/cliente/detail')
-    },
-    loadFavs () {
-      this.token = Cookies.get('token')
-
-      this.$axios.get('/favorites', {
-        headers: {
-          Authorization: `Bearer ${this.token}`
-        }
-      }).then((res) => {
-        // eslint-disable-next-line no-console
-        console.log('@@@ resFav => ', res.data)
-        if (res.data.success && Array.isArray(res.data.favorites)) {
-          this.favs = res.data.favorites
-        } else {
-          // eslint-disable-next-line no-console
-          console.error('No es array valido en favs')
-        }
-      }).catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error('@@@ error => ', error)
-      })
     },
     addFavorite (favoriteData) {
       this.token = Cookies.get('token')

@@ -8,7 +8,7 @@
         <div class="headReview">
           <div class="userInfo">
             <div class="userName">
-              {{ userName }}
+              {{ reviewinfo.nombreUsuario }}
             </div>
             <div class="userWork">
               {{ workUser }}
@@ -16,7 +16,7 @@
           </div>
           <div class="reviewInfo">
             <div class="dateRev">
-              {{ dateRev }}
+              {{ reviewinfo.date_review }}
             </div>
             <div class="revStars">
               <span v-for="n in estrellas" :key="'estrella-' + n">
@@ -30,7 +30,7 @@
         </div>
         <div class="descReview">
           <p class="descR">
-            {{ descReview }}
+            {{ reviewinfo.description }}
           </p>
         </div>
       </div>
@@ -41,43 +41,49 @@
 <script>
 export default {
   props: {
+    reviewinfo: {
+      type: Object,
+      required: true,
+      default: () => ({})
+    },
     imgUser: {
       type: String,
       required: true,
-      default: () => require('@/assets/usuario1.jpg')
-    },
-    userName: {
-      type: String,
-      required: true,
-      default: 'Alex Stanton'
-    },
-    workUser: {
-      type: String,
-      required: true,
-      default: 'CEO at Bukalapak'
-    },
-    dateRev: {
-      type: String,
-      required: true,
-      default: '21 July 2022'
-    },
-    numStars: {
-      type: Number,
-      required: true,
-      default: 4
-    },
-    descReview: {
-      type: String,
-      required: true,
-      default: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur commodi consectetur expedita ipsum dolorem itaque explicabo, modi fugit quos provident eaque ea sequi qui quas dicta consequatur inventore obcaecati nobis?'
+      default: () => require('@/assets/usuario1.png')
+    }
+  },
+  data () {
+    return {
+      workUser: this.asignarJob()
     }
   },
   computed: {
     estrellas () {
-      return Array(this.numStars).fill(null)
+      const rating = parseInt(this.reviewinfo.rate) || 0
+      return Array(Math.min(Math.max(rating, 0), 5)).fill(null)
     },
     estrellasWhite () {
-      return Array(5 - this.numStars).fill(null)
+      const rating = parseInt(this.reviewinfo.rate) || 0
+      return Array(5 - Math.min(Math.max(rating, 0), 5)).fill(null)
+    }
+  },
+  methods: {
+    asignarJob () {
+      const puestos = [
+        'Desarrollador Frontend',
+        'Desarrollador Backend',
+        'Diseñador UX/UI',
+        'Gerente de Proyectos',
+        'Analista de Datos',
+        'Administrador de Sistemas',
+        'Especialista en Seguridad Informática',
+        'Soporte Técnico',
+        'Marketing Digital',
+        'Científico de Datos'
+      ]
+
+      const puestoAleatorio = puestos[Math.floor(Math.random() * puestos.length)]
+      return puestoAleatorio
     }
   }
 }
