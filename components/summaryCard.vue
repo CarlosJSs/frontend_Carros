@@ -8,7 +8,7 @@
     </div>
     <div class="rowCardSM rowImgTitle">
       <div class="imgCarSM">
-        <img :src="carIMG" class="imageCarSM">
+        <img :src="getCarImage(carro.id)" class="imageCarSM" @error="setDefaultImage">
       </div>
       <div class="infoCarSM">
         <div class="titleCarSM">
@@ -97,6 +97,19 @@ export default {
     estrellasWhite () {
       const rating = parseInt(this.carro.rating) || 0
       return Array(5 - Math.min(Math.max(rating, 0), 5)).fill(null)
+    }
+  },
+  methods: {
+    getCarImage (id) {
+      try {
+        return require(`@/assets/cars/${id}.png`)
+      } catch (error) {
+        // Si no se encuentra, devolver una imagen por defecto.
+        return require('@/assets/c1.png')
+      }
+    },
+    setDefaultImage (event) {
+      event.target.src = require('@/assets/c1.png')
     }
   }
 }

@@ -56,7 +56,8 @@ export default {
           eightPlus: true
         },
         price: 1000
-      }
+      },
+      users: []
     }
   },
   computed: {
@@ -87,11 +88,14 @@ export default {
     if (this.carroID) {
       this.loadCarro()
       setTimeout(() => {
+        this.loadClientes()
+      }, 200)
+      setTimeout(() => {
         this.loadReviews()
       }, 200)
       setTimeout(() => {
         this.loadCarros()
-      }, 1000)
+      }, 200)
     } else {
       // eslint-disable-next-line no-console
       console.error('No se recibio un ID de carro')
@@ -125,7 +129,15 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
-          this.reviews = res.data.reviews.filter(review => review.idCar === this.carroID)
+          const rawReviews = res.data.reviews.filter(review => review.idCar === this.carroID)
+
+          this.reviews = rawReviews.map((review) => {
+            const user = this.users.find(user => user.id === review.idUser)
+            return {
+              ...review,
+              nombreUsuario: user ? (user.nombre + ' ' + user.apellido) : 'Usuario desconocido'
+            }
+          })
           // eslint-disable-next-line no-console
           console.log('reviews filtradas: ', this.reviews)
         }
@@ -187,6 +199,27 @@ export default {
     },
     updateFilters (newFilters) {
       this.filters = newFilters
+    },
+    loadClientes () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/usuarios', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success && Array.isArray(res.data.usuarios)) {
+          this.users = res.data.usuarios.filter(user => user.rol === 'cliente')
+          // eslint-disable-next-line no-console
+          console.log('@@@ usersFilt => ', this.users)
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
     }
   }
 }

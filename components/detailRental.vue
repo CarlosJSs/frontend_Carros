@@ -10,7 +10,7 @@
         <p class="car-type">
           {{ car.categoria }}
         </p>
-        <img src="~/assets/c1.png" alt="Car Image" class="car-image">
+        <img :src="getCarImage(car.id)" alt="Car Image" class="car-image" @error="setDefaultImage">
         <div class="car-info">
           <span class="info-item">
             <i class="fas fa-gas-pump" /> {{ car.capacidad_tanque }}
@@ -55,6 +55,17 @@ export default {
       this.$emit('submitCar', {
         ...car
       })
+    },
+    getCarImage (id) {
+      try {
+        return require(`@/assets/cars/${id}.png`)
+      } catch (error) {
+        // Si no se encuentra, devolver una imagen por defecto.
+        return require('@/assets/c1.png')
+      }
+    },
+    setDefaultImage (event) {
+      event.target.src = require('@/assets/c1.png')
     }
   }
 }
