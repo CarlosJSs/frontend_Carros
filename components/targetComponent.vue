@@ -1,32 +1,34 @@
 <template>
-  <div class="carousel">
-    <div class="carousel-wrapper" :style="{ transform: `translateX(calc(-${currentIndex * 50}%))` }">
-      <div
-        v-for="(item, index) in items"
-        :key="index"
-        class="carousel-item"
-      >
-        <div class="card">
-          <h2>{{ item.title }}</h2>
-          <p>{{ item.description }}</p>
-          <button class="btn">
-            {{ item.buttonText }}
-          </button>
-          <img :src="item.image" :alt="item.alt" class="card-image">
+  <div class="carousel-container">
+    <div class="carousel">
+      <div class="carousel-wrapper" :style="{ transform: `translateX(calc(-${currentIndex * 100}%))` }">
+        <div
+          v-for="(item, index) in items"
+          :key="index"
+          class="carousel-item"
+        >
+          <div class="card">
+            <h2 class="titleCardC">
+              {{ item.title }}
+            </h2>
+            <p>{{ item.description }}</p>
+            <img :src="item.image" :alt="item.alt" class="card-image">
+          </div>
         </div>
       </div>
-    </div>
-    <!-- Controles -->
-    <div class="controls">
-      <button class="control-btn" @click="prevSlide">
-        ❮
-      </button>
-      <button class="control-btn" @click="nextSlide">
-        ❯
-      </button>
+      <!-- Controles -->
+      <div class="controls">
+        <button class="control-btn left" @click="prevSlide">
+          ❮
+        </button>
+        <button class="control-btn right" @click="nextSlide">
+          ❯
+        </button>
+      </div>
     </div>
   </div>
 </template>
+
 <script>
 export default {
   data () {
@@ -34,53 +36,71 @@ export default {
       currentIndex: 0,
       items: [
         {
-          title: 'The Best Platform for Car Rental',
-          description: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          title: 'Drive Your Dreams',
+          description: 'Every journey begins with a single drive. Make it count!',
+          image: require('@/assets/carrusel/carrusel1.png'),
           alt: 'Car Image 1'
         },
         {
-          title: 'Easy way to rent a car at a low price',
-          description: 'Providing cheap car rental services and safe and comfortable facilities.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
+          title: 'Feel the Freedom of the Road',
+          description: 'A car is more than a vehicle; it’s your gateway to endless adventures.',
+          image: require('@/assets/carrusel/carrusel5.png'),
           alt: 'Car Image 2'
         },
         {
-          title: 'The Best Platform for Car Rental',
-          description: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
-          alt: 'Car Image 1'
+          title: 'Unleash the Power Within',
+          description: 'Behind the wheel, you hold the power to conquer any road.',
+          image: require('@/assets/carrusel/carrusel4.png'),
+          alt: 'Car Image 3'
         },
         {
-          title: 'Easy way to rent a car at a low price',
-          description: 'Providing cheap car rental services and safe and comfortable facilities.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
-          alt: 'Car Image 2'
+          title: 'Style Meets Performance',
+          description: 'Drive the car that defines you and lets you conquer every turn.',
+          image: require('@/assets/carrusel/carrusel3.png'),
+          alt: 'Car Image 4'
         },
         {
-          title: 'Easy way to rent a car at a low price',
-          description: 'Providing cheap car rental services and safe and comfortable facilities.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
-          alt: 'Car Image 2'
+          title: 'The Road Awaits',
+          description: 'The open road is calling. Are you ready to answer?',
+          image: require('@/assets/carrusel/carrusel6.png'),
+          alt: 'Car Image 5'
         },
         {
-          title: 'The Best Platform for Car Rental',
-          description: 'Ease of doing a car rental safely and reliably. Of course at a low price.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
-          alt: 'Car Image 1'
+          title: 'Engineered for Adventure',
+          description: 'Every mile is a new story waiting to be written. Drive it with passion.',
+          image: require('@/assets/carrusel/carrusel2.png'),
+          alt: 'Car Image 6'
+        },
+
+        {
+          title: 'Style Meets Performance',
+          description: 'Drive the car that defines you and lets you conquer every turn.',
+          image: require('@/assets/carrusel/carrusel3.png'),
+          alt: 'Car Image 4'
         },
         {
-          title: 'Easy way to rent a car at a low price',
-          description: 'Providing cheap car rental services and safe and comfortable facilities.',
-          buttonText: 'Rental Car',
-          image: require('~/assets/c1.png'), // Cambia a la ruta real de tu imagen
-          alt: 'Car Image 2'
+          title: 'The Road Awaits',
+          description: 'The open road is calling. Are you ready to answer?',
+          image: require('@/assets/carrusel/carrusel6.png'),
+          alt: 'Car Image 5'
+        },
+        {
+          title: 'Engineered for Adventure',
+          description: 'Every mile is a new story waiting to be written. Drive it with passion.',
+          image: require('@/assets/carrusel/carrusel6.png'),
+          alt: 'Car Image 6'
+        },
+        {
+          title: 'Engineered for Adventure',
+          description: 'Every mile is a new story waiting to be written. Drive it with passion.',
+          image: require('@/assets/carrusel/carrusel6.png'),
+          alt: 'Car Image 6'
+        },
+        {
+          title: 'Engineered for Adventure',
+          description: 'Every mile is a new story waiting to be written. Drive it with passion.',
+          image: require('@/assets/carrusel/carrusel6.png'),
+          alt: 'Car Image 6'
         }
       ]
     }
@@ -105,87 +125,70 @@ export default {
 </script>
 
 <style scoped>
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 20px 0;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+}
+
 .carousel-wrapper {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  width: 100%;
 }
 
 .carousel-item {
-  flex: 0 0 50%; /* Cada slide ocupa el 50% del ancho */
-  padding: 10px; /* Espaciado entre slides */
+  flex: 0 0 100%;
   box-sizing: border-box;
+  padding: 10px;
 }
 
 .card {
-  background: linear-gradient(120deg, #4f7ef1 0%, #63a4ff 100%);
+  background: linear-gradient(120deg, #3563e9 0%, #1e2c57 100%);
   border-radius: 10px;
   padding: 20px;
   color: white;
   text-align: left;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   height: 300px;
 }
 
-.card h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.card p {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.card .btn {
-  background-color: #1976d2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.card .btn:hover {
-  background-color: #125ea4;
-}
-
 .card-image {
-  position: absolute;
-  right: 20px;
-  bottom: 10px;
-  max-height: 200px;
-  max-width: 50%;
+  max-width: 100%;
+  height: auto;
+  margin-top: 10px;
+  margin-left: 46%;
 }
 
 .controls {
   position: absolute;
-  top: 15%;
-  left: 0;
-  right: 0;
+  top: 50%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  height: 50px;
+  transform: translateY(-50%);
 }
 
 .control-btn {
   background-color: #1976d2;
   color: white;
   border: none;
-  padding: 10px 15px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 20px;
-  outline: none;
-  position: relative;
 }
 
 .control-btn:hover {
   background-color: #125ea4;
 }
-
 </style>

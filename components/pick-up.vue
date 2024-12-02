@@ -39,7 +39,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Locations</label>
-          <select v-model="dataResv.dropoffLocation">
+          <select v-model="dataResv.dropoffLocation" :disabled="!pickupComplete">
             <option disabled value="">
               Select your city
             </option>
@@ -50,11 +50,11 @@
         </div>
         <div class="form-group">
           <label>Date</label>
-          <input v-model="dataResv.dropoffDate" type="date">
+          <input v-model="dataResv.dropoffDate" type="date" :min="dropoffMinDate" :disabled="!pickupComplete">
         </div>
         <div class="form-group">
           <label>Time</label>
-          <input v-model="dataResv.dropoffTime" type="time">
+          <input v-model="dataResv.dropoffTime" type="time" :disabled="!dataResv.dropoffDate">
         </div>
       </div>
     </div>
@@ -73,7 +73,17 @@ export default {
         dropoffDate: '',
         dropoffTime: ''
       },
+      dropoffMinDate: '',
       cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Irapuato', 'Guanajuato', 'Leon']
+    }
+  },
+  computed: {
+    pickupComplete () {
+      return (
+        this.dataResv.pickupLocation &&
+        this.dataResv.pickupDate &&
+        this.dataResv.pickupTime
+      )
     }
   },
   watch: {
@@ -84,6 +94,9 @@ export default {
           ...newValue
         })
       }
+    },
+    'dataResv.pickupDate' (newDate) {
+      this.updateDropoffMinDate(newDate)
     }
   },
   methods: {
@@ -91,6 +104,13 @@ export default {
       const temp = this.dataResv.pickupLocation
       this.dataResv.pickupLocation = this.dataResv.dropoffLocation
       this.dataResv.dropoffLocation = temp
+    },
+    updateDropoffMinDate (pickupDate) {
+      this.dropoffMinDate = pickupDate
+      if (this.dataResv.dropoffDate < this.dropoffMinDate) {
+        this.dataResv.dropoffDate = ''
+        this.dataResv.dropoffTime = ''
+      }
     }
   }
 }

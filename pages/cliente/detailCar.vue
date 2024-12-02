@@ -4,10 +4,22 @@
       <filtros :filters="filters" @update-filters="updateFilters" />
     </div>
     <div class="rightCont">
-      <carProfile v-if="carro" :carroinfo="carro" :num-reviews="reviews.length" @rentCarEvent="rentarCarro" />
+      <carProfile
+        v-if="carro"
+        :carroinfo="carro"
+        :num-reviews="reviews.length"
+        :loved-car="lovedCar"
+        @rentCarEvent="rentarCarro"
+      />
       <reviewsCont v-if="reviews.length > 0" :num-reviews="reviews.length" :reviewsarray="reviews" />
       <div class="carrosCards">
-        <detailRental :cars="filteredCars" @submitCar="updateCarro" />
+        <detailRental
+          :cars="filteredCars"
+          :favorites="favs"
+          @submitCar="updateCarro"
+          @addFavorite="addFavorite"
+          @removeFavorite="removeFavorite"
+        />
       </div>
     </div>
   </v-row>
@@ -39,6 +51,7 @@ export default {
       carroID: '',
       reviews: [],
       cars: [],
+      favs: [],
       dataResv: {},
       filters: {
         type: {
@@ -56,7 +69,8 @@ export default {
           eightPlus: true
         },
         price: 1000
-      }
+      },
+      users: []
     }
   },
   computed: {
@@ -77,6 +91,9 @@ export default {
 
         return typeMatch && capacityMatch && priceMatch
       })
+    },
+    lovedCar () {
+      return this.favs.some(fav => fav.idcar === this.carro.id)
     }
   },
   mounted () {
@@ -87,11 +104,17 @@ export default {
     if (this.carroID) {
       this.loadCarro()
       setTimeout(() => {
+        this.loadClientes()
+      }, 600)
+      setTimeout(() => {
         this.loadReviews()
-      }, 200)
+      }, 1200)
       setTimeout(() => {
         this.loadCarros()
-      }, 1000)
+      }, 1800)
+      setTimeout(() => {
+        this.loadFavs()
+      }, 2400)
     } else {
       // eslint-disable-next-line no-console
       console.error('No se recibio un ID de carro')
@@ -125,7 +148,15 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
-          this.reviews = res.data.reviews.filter(review => review.idCar === this.carroID)
+          const rawReviews = res.data.reviews.filter(review => review.idCar === this.carroID)
+
+          this.reviews = rawReviews.map((review) => {
+            const user = this.users.find(user => user.id === review.idUser)
+            return {
+              ...review,
+              nombreUsuario: user ? (user.nombre + ' ' + user.apellido) : 'Usuario desconocido'
+            }
+          })
           // eslint-disable-next-line no-console
           console.log('reviews filtradas: ', this.reviews)
         }
@@ -145,7 +176,7 @@ export default {
         // eslint-disable-next-line no-console
         console.log('@@@ res => ', res.data)
         if (res.data.success && Array.isArray(res.data.cars)) {
-          this.cars = res.data.cars
+          this.cars = res.data.cars.filter(car => car.istaken === 'false')
         } else {
           // eslint-disable-next-line no-console
           console.error('No es array valido')
@@ -187,6 +218,85 @@ export default {
     },
     updateFilters (newFilters) {
       this.filters = newFilters
+    },
+    loadClientes () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/usuarios', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success && Array.isArray(res.data.usuarios)) {
+          this.users = res.data.usuarios.filter(user => user.rol === 'cliente')
+          // eslint-disable-next-line no-console
+          console.log('@@@ usersFilt => ', this.users)
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
+    },
+    loadFavs () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/favorites', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('@@@ resFav => ', res.data)
+        if (res.data.success && Array.isArray(res.data.favorites)) {
+          this.favs = res.data.favorites
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido en favs')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
+    },
+    addFavorite (favoriteData) {
+      this.token = Cookies.get('token')
+
+      this.$axios.post('/favorites/create', favoriteData, {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.favs.push(res.data.favoriteId) // Agregar el nuevo favorito a la lista local
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No se pudo agregar el favorito')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error al agregar favorito:', error)
+      })
+    },
+    removeFavorite (favoriteId) {
+      this.token = Cookies.get('token')
+      this.$axios.delete(`/favorites/delete/${favoriteId}`, {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.favs = this.favs.filter(fav => fav.id !== favoriteId) // Eliminar el favorito de la lista local
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No se pudo eliminar el favorito')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error al eliminar favorito:', error)
+      })
     }
   }
 }

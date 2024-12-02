@@ -10,15 +10,18 @@
         </div>
       </div>
       <div class="mainSection">
-        <div v-for="(rev, index) in reviewsarray" :key="index" class="reviewItem">
+        <div v-for="(rev, index) in visibleReviews" :key="index" class="reviewItem">
           <reviewCard :reviewinfo="rev" />
         </div>
       </div>
-      <div class="footerSection">
+      <div class="footerSection" @click="toggleShowAll">
         <div class="showAll">
-          Show All
+          {{ showAll ? 'Show Less' : 'Show All' }}
         </div>
-        <span class="downRow">
+        <span v-if="showAll" class="downRow">
+          ↑
+        </span>
+        <span v-else class="downRow">
           ↓
         </span>
       </div>
@@ -43,6 +46,21 @@ export default {
       type: Array,
       required: true,
       default: () => ([])
+    }
+  },
+  data () {
+    return {
+      showAll: false
+    }
+  },
+  computed: {
+    visibleReviews () {
+      return this.showAll ? this.reviewsarray : this.reviewsarray.slice(0, 2)
+    }
+  },
+  methods: {
+    toggleShowAll () {
+      this.showAll = !this.showAll
     }
   }
 }

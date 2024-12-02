@@ -8,7 +8,13 @@
         <pickUp @rentDataEvent="setDataResv" />
       </div>
       <div class="popular-section">
-        <detailRental :cars="cars" @submitCar="chooseCar" />
+        <detailRental
+          :cars="cars"
+          :favorites="favs"
+          @submitCar="chooseCar"
+          @addFavorite="addFavorite"
+          @removeFavorite="removeFavorite"
+        />
       </div>
       <div class="btnMore">
         <button @click="goDetail">
@@ -45,6 +51,7 @@ export default {
   data () {
     return {
       cars: [],
+      favs: [],
       fechaInicio: '',
       fechaFin: '',
       horaInicio: '',
@@ -55,6 +62,7 @@ export default {
   },
   mounted () {
     this.loadCarros()
+    this.loadFavs()
   },
   methods: {
     loadCarros () {
@@ -106,6 +114,64 @@ export default {
     },
     goDetail () {
       this.$router.push('/cliente/detail')
+    },
+    loadFavs () {
+      this.token = Cookies.get('token')
+
+      this.$axios.get('/favorites', {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        // eslint-disable-next-line no-console
+        console.log('@@@ resFav => ', res.data)
+        if (res.data.success && Array.isArray(res.data.favorites)) {
+          this.favs = res.data.favorites
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No es array valido en favs')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('@@@ error => ', error)
+      })
+    },
+    addFavorite (favoriteData) {
+      this.token = Cookies.get('token')
+
+      this.$axios.post('/favorites/create', favoriteData, {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.favs.push(res.data.favoriteId) // Agregar el nuevo favorito a la lista local
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No se pudo agregar el favorito')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error al agregar favorito:', error)
+      })
+    },
+    removeFavorite (favoriteId) {
+      this.token = Cookies.get('token')
+      this.$axios.delete(`/favorites/delete/${favoriteId}`, {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.favs = this.favs.filter(fav => fav.id !== favoriteId) // Eliminar el favorito de la lista local
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No se pudo eliminar el favorito')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error al eliminar favorito:', error)
+      })
     }
   }
 }

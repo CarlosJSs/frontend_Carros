@@ -8,7 +8,7 @@
         <div class="headReview">
           <div class="userInfo">
             <div class="userName">
-              {{ reviewinfo.idUser }}
+              {{ reviewinfo.nombreUsuario }}
             </div>
             <div class="userWork">
               {{ workUser }}
@@ -16,7 +16,7 @@
           </div>
           <div class="reviewInfo">
             <div class="dateRev">
-              {{ dateRev }}
+              {{ reviewinfo.date_review }}
             </div>
             <div class="revStars">
               <span v-for="n in estrellas" :key="'estrella-' + n">
@@ -49,17 +49,7 @@ export default {
     imgUser: {
       type: String,
       required: true,
-      default: () => require('@/assets/usuario1.jpg')
-    },
-    dateRev: {
-      type: String,
-      required: true,
-      default: '21 July 2022'
-    },
-    numStars: {
-      type: Number,
-      required: true,
-      default: 4
+      default: () => require('@/assets/usuario1.png')
     }
   },
   data () {
