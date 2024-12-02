@@ -2,7 +2,13 @@
   <v-row justify="center" align="center" class="index-background">
     <div class="container">
       <div class="popular-section">
-        <detailRental :cars="favoriteCars" @submitCar="chooseCar" />
+        <detailRental
+          :cars="favoriteCars"
+          :favorites="favs"
+          @submitCar="chooseCar"
+          @addFavorite="addFavorite"
+          @removeFavorite="removeFavorite"
+        />
       </div>
     </div>
     <div class="footer">
@@ -120,6 +126,43 @@ export default {
       this.horaFin = data.dropoffTime
       this.ciudadInicio = data.pickupLocation
       this.ciudadFin = data.dropoffLocation
+    },
+    addFavorite (favoriteData) {
+      this.token = Cookies.get('token')
+
+      this.$axios.post('/favorites/create', favoriteData, {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.favs.push(res.data.favoriteId) // Agregar el nuevo favorito a la lista local
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No se pudo agregar el favorito')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error al agregar favorito:', error)
+      })
+    },
+    removeFavorite (favoriteId) {
+      this.token = Cookies.get('token')
+      this.$axios.delete(`/favorites/delete/${favoriteId}`, {
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      }).then((res) => {
+        if (res.data.success) {
+          this.favs = this.favs.filter(fav => fav.id !== favoriteId) // Eliminar el favorito de la lista local
+        } else {
+          // eslint-disable-next-line no-console
+          console.error('No se pudo eliminar el favorito')
+        }
+      }).catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error('Error al eliminar favorito:', error)
+      })
     }
   }
 }

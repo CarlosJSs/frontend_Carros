@@ -5,7 +5,11 @@
       <div v-for="(car, index) in cars" :key="index" class="car-card">
         <div class="card-header">
           <h4>{{ car.nombre }}</h4>
-          <i class="fas fa-heart favorite-icon" />
+          <i
+            :class="['fas', 'fa-heart', isFavorite(car.id) ? 'favorite-icon-red' : 'favorite-icon-white']"
+            class="favorite-icon"
+            @click="toggleFavorite(car)"
+          />
         </div>
         <p class="car-type">
           {{ car.categoria }}
@@ -36,18 +40,22 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
+
 export default {
   props: {
     cars: {
       type: Array,
       required: true
+    },
+    favorites: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
-      carroSelected: {
-
-      }
+      userID: Cookies.get('userID')
     }
   },
   methods: {
@@ -66,10 +74,25 @@ export default {
     },
     setDefaultImage (event) {
       event.target.src = require('@/assets/c1.png')
+    },
+    isFavorite (carId) {
+      return this.favorites.some(fav => fav.idcar === carId)
+    },
+    toggleFavorite (car) {
+      if (this.isFavorite(car.id)) {
+        const favorite = this.favorites.find(fav => fav.idcar === car.id)
+        this.$emit('removeFavorite', favorite.id)
+      } else {
+        this.$emit('addFavorite', {
+          idcar: car.id,
+          idusuario: this.userID
+        })
+      }
     }
   }
 }
 </script>
+
 <style scoped>
 .popular-cars {
   padding: 20px;
@@ -148,5 +171,16 @@ button {
 }
 button:hover {
   background-color: #1259a1;
+}
+.favorite-icon-red {
+  color: red;
+}
+
+.favorite-icon-white {
+  color: rgb(225, 230, 233);
+}
+.favorite-icon {
+  cursor: pointer;
+  font-size: 1.5em;
 }
 </style>

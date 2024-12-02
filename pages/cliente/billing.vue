@@ -89,7 +89,8 @@ export default {
       const body = {
         ...bodyResv,
         idcar: this.carro.id,
-        costo: parseFloat(this.carro.precio) + parseFloat(this.carro.precio / 100 * 16)
+        costo: parseFloat(this.carro.precio) + parseFloat(this.carro.precio / 100 * 16),
+        istaken: 'true'
       }
 
       await this.$axios.post('/reserva/create', body, {

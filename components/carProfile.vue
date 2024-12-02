@@ -7,7 +7,7 @@
         </div>
         <div class="smallImages">
           <div class="descImage">
-            <img src="./../assets/imgExample2.png" alt="img2" class="imgSmall">
+            <img :src="getCarImage(carroinfo.id)" alt="img2" class="imgSmall" @error="setDefaultImage">
           </div>
           <div class="descImage">
             <img src="./../assets/imgExample3.png" alt="img3" class="imgSmall">
@@ -126,7 +126,7 @@ export default {
     lovedCar: {
       type: Boolean,
       required: true,
-      default: true
+      default: false
     }
   },
   data () {
@@ -149,6 +149,17 @@ export default {
       this.$emit('rentCarEvent', {
         id
       })
+    },
+    getCarImage (id) {
+      try {
+        return require(`@/assets/cars/${id}.png`)
+      } catch (error) {
+        // Si no se encuentra, devolver una imagen por defecto.
+        return require('@/assets/c1.png')
+      }
+    },
+    setDefaultImage (event) {
+      event.target.src = require('@/assets/c1.png')
     }
   }
 }
